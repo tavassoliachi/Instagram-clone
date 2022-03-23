@@ -1,52 +1,23 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  TouchableOpacity,
-} from 'react-native';
-import React from 'react';
-const AuthStack = (navigation) => {
+import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
+import React from "react";
+import { useNavigation } from "@react-navigation/native";
+import { auth } from "../Firebase-config";
+const AuthStack = () => {
+  const navigation = useNavigation();
   return (
-    <View
-      style={{
-        justifyContent: 'center',
-        flex: 1,
-        backgroundColor: 'white',
-      }}
-    >
-      <View style={styles.main}>
+    <View style={styles.mainCont}>
+      <View style={styles.subCont}>
         <Image
-          source={require('../assets/headerLogo.png')}
-          style={{ height: 65, resizeMode: 'contain' }}
+          source={require("../assets/headerLogo.png")}
+          style={styles.logo}
         />
         <TouchableOpacity
-          style={{
-            backgroundColor: '#489cf0',
-            width: '100%',
-            paddingVertical: 13,
-            borderRadius: 3,
-            marginTop: 37,
-          }}
+          style={styles.registerBtn}
+          onPress={() => navigation.push("Register")}
         >
-          <Text
-            style={{
-              color: 'white',
-              textAlign: 'center',
-              fontWeight: '600',
-            }}
-          >
-            Create New Account
-          </Text>
+          <Text style={styles.registerTxt}>Create New Account</Text>
         </TouchableOpacity>
-        <Text
-          style={{
-            color: '#489cf0',
-            marginTop: 25,
-            fontWeight: '600',
-          }}
-          onPress={() => navigation.navigation.push('LogIn')}
-        >
+        <Text style={styles.loginTxt} onPress={() => navigation.push("LogIn")}>
           Log In
         </Text>
       </View>
@@ -57,10 +28,36 @@ const AuthStack = (navigation) => {
 export default AuthStack;
 
 const styles = StyleSheet.create({
-  main: {
-    backgroundColor: 'white',
-    height: '30%',
-    alignItems: 'center',
+  mainCont: {
+    justifyContent: "center",
+    flex: 1,
+    backgroundColor: "white",
+  },
+  subCont: {
+    backgroundColor: "white",
+    height: "30%",
+    alignItems: "center",
     marginHorizontal: 25,
+  },
+  logo: {
+    height: 65,
+    resizeMode: "contain",
+  },
+  registerBtn: {
+    backgroundColor: "#489cf0",
+    width: "100%",
+    paddingVertical: 13,
+    borderRadius: 3,
+    marginTop: 37,
+  },
+  registerTxt: {
+    color: "white",
+    textAlign: "center",
+    fontWeight: "600",
+  },
+  loginTxt: {
+    color: "#489cf0",
+    marginTop: 25,
+    fontWeight: "600",
   },
 });
