@@ -20,6 +20,9 @@ const SearchTab = ({ navigation }) => {
   const [results, setResults] = useState([]);
   useEffect(() => {
     (async function getSearch() {
+      if (search.length < 2) {
+        return;
+      }
       const q = query(
         collection(db, "users"),
         where("searchQuery", "array-contains", `${search}`)

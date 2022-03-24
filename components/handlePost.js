@@ -1,14 +1,6 @@
-import { StyleSheet, Text, View } from "react-native";
-import React from "react";
 import * as ImagePicker from "expo-image-picker";
-import { getStorage, ref, getDownloadURL } from "firebase/storage";
-import { setDoc, doc } from "firebase/firestore";
-import { db } from "../Firebase-config";
-import { uploadBytes } from "firebase/storage";
-import { useDispatch } from "react-redux";
-import { getPosts } from "../Redux/Actions";
-const handlePost = async (data, dispatch) => {
-  alert("A");
+import { getStorage, ref, getDownloadURL, uploadBytes } from "firebase/storage";
+const handlePost = async (Upload) => {
   if (Platform.OS !== "web") {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
     if (status !== "granted") {
@@ -34,25 +26,8 @@ const handlePost = async (data, dispatch) => {
     const bytes = await image.blob();
 
     uploadBytes(storageRef, bytes).then(() => {
-      getDownloadURL(storageRef).then((url) => handlePost(url));
+      getDownloadURL(storageRef).then((url) => Upload(url));
     });
-  }
-  async function handlePost(url) {
-    await setDoc(
-      doc(
-        db,
-        "posts",
-        `${data.uid + "-" + (Math.random() + Math.random()).toString()}`
-      ),
-      {
-        img: url,
-        username: data.displayName,
-        uid: data.uid,
-        createDate: Date.now(),
-        avatar: data.avatar,
-      }
-    );
-    dispatch(getPosts());
   }
 };
 

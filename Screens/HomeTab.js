@@ -18,7 +18,7 @@ const HomeTab = () => {
             keyExtractor={(item, index) => item + index}
             ListHeaderComponent={Stories}
             renderSectionHeader={(item) => <PostHeader data={item} />}
-            renderSectionFooter={PostFooter}
+            renderSectionFooter={(el) => <PostFooter data={el} />}
             contentInset={{ bottom: 50 }}
             contentInsetAdjustmentBehavior="automatic"
             stickySectionHeadersEnabled={false}

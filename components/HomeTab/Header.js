@@ -10,10 +10,30 @@ import * as ImagePicker from "expo-image-picker";
 import { auth } from "../../Firebase-config";
 import handlePost from "../handlePost";
 import { useDispatch } from "react-redux";
+import { getPosts } from "../../Redux/Actions";
 const Header = () => {
   const dispatch = useDispatch();
   const data = useSelector((el) => el?.addUser.user);
-
+  const uploadPost = async (url) => {
+    await setDoc(
+      doc(
+        db,
+        "posts",
+        `${data.uid + "-" + (Math.random() + Math.random()).toString()}`
+      ),
+      {
+        img: url,
+        name: `${data.uid + "-" + (Math.random() + Math.random()).toString()}`,
+        username: data.displayName,
+        uid: data.uid,
+        createDate: Date.now(),
+        likes: [],
+        comments: [],
+        avatar: data.avatar || "",
+      }
+    );
+    dispatch(getPosts());
+  };
   return (
     <View style={styles.cont}>
       <Image
@@ -24,7 +44,7 @@ const Header = () => {
         <Feather
           name="plus-square"
           size={25}
-          onPress={() => handlePost(data, dispatch)}
+          onPress={() => handlePost(uploadPost)}
         />
         <Feather name="heart" size={25} />
         <MaterialCommunityIcons name="facebook-messenger" size={25} />

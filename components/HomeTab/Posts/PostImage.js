@@ -1,9 +1,17 @@
-import { StyleSheet, Text, View, Image, Dimensions } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  Dimensions,
+  ActivityIndicator,
+} from "react-native";
 import React, { useState, useEffect } from "react";
 import PostHeader from "./PostHeader";
 
 const SinglePost = ({ data }) => {
   const [height, setHeight] = useState();
+  const [loading, setLoading] = useState();
   useEffect(() => {
     Image.getSize(`${data.img}`, (width, height) => {
       let screenWidth = Dimensions.get("window").width;
@@ -18,12 +26,26 @@ const SinglePost = ({ data }) => {
         source={{
           uri: `${data.img}`,
         }}
+        onLoadStart={() => setLoading(true)}
+        onLoadEnd={() => setLoading(false)}
         resizeMode={"contain"}
         style={{
           height: height,
           ...styles.image,
         }}
       />
+      {loading && (
+        <ActivityIndicator
+          color="white"
+          size="large"
+          style={{
+            position: "absolute",
+            backgroundColor: "#dedede",
+            height: height,
+            ...styles.image,
+          }}
+        />
+      )}
     </View>
   );
 };

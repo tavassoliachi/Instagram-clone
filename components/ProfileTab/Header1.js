@@ -1,15 +1,21 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
-import React from "react";
-import { useSelector } from "react-redux";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  ActivityIndicator,
+  Image,
+} from "react-native";
+import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { doc, setDoc } from "firebase/firestore";
 import { db } from "../../Firebase-config";
-import { useDispatch } from "react-redux";
-import * as ImagePicker from "expo-image-picker";
-import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { handleFollow } from "./components/handleFollow";
 import { handleUnfollow } from "./components/handleUnfollow";
-import { getPosts } from "../../Redux/Actions";
+import { getUserData } from "../../Redux/Actions";
+import handlePost from "../handlePost";
 const Header1 = ({ posts, userData, isSearch }) => {
+  const [avatarLoading, setAvatarLoading] = useState(false);
   const data = useSelector((data) => data);
   const dispatch = useDispatch();
   const handleClick = async () => {
@@ -19,40 +25,10 @@ const Header1 = ({ posts, userData, isSearch }) => {
   };
 
   const handlePress = async () => {
-    if (isSearch) {
-      return;
-    }
-    if (Platform.OS !== "web") {
-      const { status } =
-        await ImagePicker.requestMediaLibraryPermissionsAsync();
-      if (status !== "granted") {
-        alert("Denied");
-      } else {
-        const result = await ImagePicker.launchImageLibraryAsync({
-          mediaTypes: ImagePicker.MediaTypeOptions.Images,
-          allowsEditing: true,
-          aspect: [4, 3],
-          quality: 1,
-        });
-        if (!result.cancelled) {
-          handleImageUpload(result.uri);
-        }
-      }
-    }
+    setAvatarLoading(true);
+    !isSearch && handlePost(changeAvatar);
   };
-  const handleImageUpload = async (img) => {
-    const storage = getStorage();
-    const name = "image-" + (Math.random() + Math.random()).toString();
-    const storageRef = ref(storage, name);
-
-    const image = await fetch(img);
-    const bytes = await image.blob();
-
-    uploadBytes(storageRef, bytes).then(() => {
-      getDownloadURL(storageRef).then((url) => handleChange(url));
-    });
-  };
-  const handleChange = async (url) => {
+  const changeAvatar = async (url) => {
     await setDoc(
       doc(db, "users", userData.uid),
       {
@@ -60,7 +36,7 @@ const Header1 = ({ posts, userData, isSearch }) => {
       },
       { merge: true }
     );
-    dispatch(getPosts());
+    dispatch(getUserData());
   };
   const followState = data?.addUser?.user?.following?.includes(userData.uid)
     ? "Unfollow"
@@ -77,15 +53,38 @@ const Header1 = ({ posts, userData, isSearch }) => {
           <View style={{ width: "70%", alignItems: "center" }}>
             <TouchableOpacity onLongPress={handlePress}>
               <Image
+                style={{
+                  width: 100,
+                  height: 100,
+                  borderRadius: 50,
+                  backgroundColor: "#c4c4c4",
+                }}
+                onLoadStart={() =>
+                  avatarLoading == false && setAvatarLoading(true)
+                }
+                onLoadEnd={() => setAvatarLoading(false)}
                 source={{
                   uri: `${
                     userData.avatar ||
                     "https://bombyxplm.com/wp-content/uploads/2021/01/421-4213053_default-avatar-icon-hd-png-download.png"
                   }`,
                 }}
-                style={styles.image}
               />
             </TouchableOpacity>
+
+            {avatarLoading && (
+              <ActivityIndicator
+                color="white"
+                style={{
+                  width: 100,
+                  height: 100,
+                  borderRadius: 50,
+                  backgroundColor: "#c4c4c4",
+                  justifyContent: "center",
+                  position: "absolute",
+                }}
+              />
+            )}
 
             <Text style={{ marginTop: 5, fontWeight: "600" }}>
               {userData.displayName}
@@ -147,7 +146,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     paddingBottom: 25,
   },
-  image: { width: 90, height: 90, borderRadius: 45 },
   editProfile: {
     borderColor: "#c4c4c4",
     paddingVertical: 8,

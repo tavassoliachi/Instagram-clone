@@ -41,7 +41,6 @@ export const getUserData = (id) => async (dispatch) => {
 export const getPosts = () => async (dispatch) => {
   const q = query(collection(db, "posts"));
   const { docs } = await getDocs(q);
-
   const data = docs.map((el) => {
     return {
       title: "post",
