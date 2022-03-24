@@ -14,7 +14,7 @@ const LoadingScreen = () => {
       <View style={{ height: "85%", justifyContent: "center" }}>
         <Image
           source={require("../assets/Instagram-logo.png")}
-          style={{ width: 100, height: 100, marginTop: 70 }}
+          style={{ width: 80, height: 80, marginTop: 70 }}
         />
       </View>
       <View>

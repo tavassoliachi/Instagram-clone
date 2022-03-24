@@ -12,6 +12,7 @@ const PostFooter = ({ data }) => {
   const dispatch = useDispatch();
   const postData = data?.section.data[0];
   const likes = postData.likes.includes(auth.currentUser.uid);
+  const commentsN = postData.comments.length;
   const handlePress = async () => {
     const currUID = auth.currentUser.uid;
     const newData = likes
@@ -52,9 +53,11 @@ const PostFooter = ({ data }) => {
           Ipsum has been the industry's standard dummy text.
         </Text>
       </View>
-      <Text style={{ color: "gray", paddingHorizontal: 10 }}>
-        View all {postData.comments.length} comments
-      </Text>
+      {commentsN > 0 && (
+        <Text style={{ color: "gray", paddingHorizontal: 10 }}>
+          View all {commentsN} comments
+        </Text>
+      )}
     </View>
   );
 };

@@ -1,6 +1,6 @@
 import * as ImagePicker from "expo-image-picker";
 import { getStorage, ref, getDownloadURL, uploadBytes } from "firebase/storage";
-const handlePost = async (Upload) => {
+const handlePost = async (Upload, stopLoading) => {
   if (Platform.OS !== "web") {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
     if (status !== "granted") {
@@ -14,6 +14,8 @@ const handlePost = async (Upload) => {
       });
       if (!result.cancelled) {
         handleImageUpload(result.uri);
+      } else {
+        stopLoading && stopLoading();
       }
     }
   }

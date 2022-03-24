@@ -25,8 +25,10 @@ const Header1 = ({ posts, userData, isSearch }) => {
   };
 
   const handlePress = async () => {
-    setAvatarLoading(true);
-    !isSearch && handlePost(changeAvatar);
+    setTimeout(() => {
+      setAvatarLoading(true);
+    }, 1000);
+    !isSearch && handlePost(changeAvatar, () => setAvatarLoading(false));
   };
   const changeAvatar = async (url) => {
     await setDoc(
