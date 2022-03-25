@@ -1,7 +1,7 @@
 import { getAuth } from "firebase/auth";
 import { userAdd } from "./Consts";
 import { db } from "../Firebase-config";
-import { where, collection, query, getDocs } from "firebase/firestore";
+import { where, collection, query, getDocs, orderBy } from "firebase/firestore";
 
 async function getData(collectionName, uid) {
   const q = query(collection(db, collectionName), where("uid", "==", uid));
@@ -39,7 +39,7 @@ export const getUserData = (id) => async (dispatch) => {
   });
 };
 export const getPosts = () => async (dispatch) => {
-  const q = query(collection(db, "posts"));
+  const q = query(collection(db, "posts"), orderBy("createDate", "desc"));
   const { docs } = await getDocs(q);
   const data = docs.map((el) => {
     return {

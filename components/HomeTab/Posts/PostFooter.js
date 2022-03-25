@@ -18,6 +18,7 @@ const PostFooter = ({ data }) => {
     const newData = likes
       ? [...postData.likes?.filter((el) => el !== currUID)]
       : [...postData?.likes, currUID];
+    console.log(newData);
     await setDoc(
       doc(db, "posts", postData.name),
       {
@@ -25,8 +26,10 @@ const PostFooter = ({ data }) => {
       },
       { merge: true }
     );
+    console.log(postData.name);
     dispatch(getPosts());
   };
+
   return (
     <View>
       <View
@@ -48,9 +51,8 @@ const PostFooter = ({ data }) => {
       <View style={{ padding: 10 }}>
         <Text style={{ fontWeight: "600" }}>{postData.likes.length} likes</Text>
         <Text>
-          <Text style={{ fontWeight: "600" }}>Username</Text> Lorem Ipsum is
-          simply dummy text of the printing and typesetting industry. Lorem
-          Ipsum has been the industry's standard dummy text.
+          <Text style={{ fontWeight: "600" }}>{postData.username}</Text>{" "}
+          {postData.text}
         </Text>
       </View>
       {commentsN > 0 && (

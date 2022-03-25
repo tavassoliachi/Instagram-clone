@@ -7,6 +7,7 @@ import AuthNavigations from "./AuthNavigations";
 import { getAuth } from "firebase/auth";
 import { useDispatch } from "react-redux";
 import { getUserData } from "../Redux/Actions";
+import LoggedInNavigations from "./LoggedInNavigations";
 import LoadingScreen from "../Screens/LoadingScreen";
 const MainNavigations = () => {
   const Stack = createStackNavigator();
@@ -26,7 +27,7 @@ const MainNavigations = () => {
         {loading ? (
           <Stack.Screen name="Loading" component={LoadingScreen} />
         ) : isLogged ? (
-          <Stack.Screen name="Main" component={TabNavigations} />
+          <Stack.Screen name="Main" component={LoggedInNavigations} />
         ) : (
           <Stack.Screen name="AuthMain" component={AuthNavigations} />
         )}

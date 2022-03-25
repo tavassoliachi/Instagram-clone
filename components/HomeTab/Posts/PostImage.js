@@ -21,7 +21,9 @@ const SinglePost = ({ data }) => {
     });
   }, []);
   return (
-    <View style={{ marginVertical: 5 }}>
+    <View
+      style={{ marginVertical: 12, minHeight: 250, backgroundColor: "#c4c4c4" }}
+    >
       <Image
         source={{
           uri: `${data.img}`,
@@ -55,7 +57,7 @@ export default SinglePost;
 const styles = StyleSheet.create({
   image: {
     resizeMode: "contain",
-    marginVertical: 10,
     width: "100%",
+    backgroundColor: "#c4c4c4",
   },
 });
