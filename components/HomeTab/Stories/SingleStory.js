@@ -7,7 +7,8 @@ const SingleStory = () => {
       <View
         style={{
           borderRadius: 50,
-          borderColor: "#13f24f",
+          borderColor: "red",
+          // backgroundColor: "red",
           borderWidth: 2,
           maxWidth: 77,
         }}

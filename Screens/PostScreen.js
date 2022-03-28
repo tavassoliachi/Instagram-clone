@@ -2,7 +2,6 @@ import {
   StyleSheet,
   View,
   Image,
-  Platform,
   Text,
   TextInput,
   Switch,
@@ -10,77 +9,63 @@ import {
   TouchableOpacity,
 } from "react-native";
 import React, { useEffect, useState } from "react";
-import Feather from "react-native-vector-icons/Feather";
 import { doc, setDoc } from "firebase/firestore";
-import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import { useSelector } from "react-redux";
-import * as ImagePicker from "expo-image-picker";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { getPosts } from "../Redux/Actions";
 import { db } from "../Firebase-config";
 import handlePost from "../components/handlePost";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 const PostScreen = ({ navigation }) => {
-  //headerRight: () => (
-  //     <View>
-  //   <Text
-  //     style={{
-  //       color: "#489cf0",
-  //       marginRight: 10,
-  //       fontWeight: "700",
-  //       fontSize: 15,
-  //     }}
-  //   >
-  //     Share
-  //   </Text>
-  // </View>
-  //   ),
-  navigation.setOptions({
-    headerRight: () => (
-      <TouchableOpacity onPress={uploadPost}>
-        <Text
-          style={{
-            color: "#489cf0",
-            marginRight: 10,
-            fontWeight: "700",
-            fontSize: 15,
-          }}
-        >
-          Share
-        </Text>
-      </TouchableOpacity>
-    ),
-  });
   const dispatch = useDispatch();
   const data = useSelector((el) => el?.addUser.user);
   const [url, setUrl] = useState();
   const [text, setText] = useState("");
   const [loading, setLoading] = useState(false);
+
   const uploadPost = async () => {
     const randomName =
       data.uid + "-" + (Math.random() + Math.random()).toString();
     await setDoc(doc(db, "posts", randomName), {
       img: url,
       name: randomName,
-      username: data.displayName,
+      username: data.username,
       uid: data.uid,
       text: text,
       createDate: Date.now(),
       likes: [],
       comments: [],
-      avatar: data.avatar || "",
     });
-    dispatch(getPosts());
     navigation.goBack();
+    dispatch(getPosts());
   };
+
   useEffect(() => {
     handlePost(
-      (url) => [setUrl(url), uploadPost(url)],
+      (url) => setUrl(url),
       () => navigation.goBack()
     );
     setLoading(true);
   }, []);
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <TouchableOpacity onPress={uploadPost}>
+          <Text
+            style={{
+              color: "#489cf0",
+              marginRight: 10,
+              fontWeight: "700",
+              fontSize: 15,
+            }}
+          >
+            Share
+          </Text>
+        </TouchableOpacity>
+      ),
+    });
+  }, [url, text]);
+
   const horizontalPadding = 15;
   return (
     <View style={{ flex: 1, backgroundColor: "white" }}>

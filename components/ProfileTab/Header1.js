@@ -6,18 +6,21 @@ import {
   ActivityIndicator,
   Image,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { doc, setDoc } from "firebase/firestore";
 import { db } from "../../Firebase-config";
 import { handleFollow } from "./components/handleFollow";
 import { handleUnfollow } from "./components/handleUnfollow";
-import { getUserData } from "../../Redux/Actions";
 import handlePost from "../handlePost";
+import { useContext } from "react";
+import getAvatar from "../getAvatar";
+import { AppStateContext } from "../../Context";
 const Header1 = ({ posts, userData, isSearch }) => {
   const [avatarLoading, setAvatarLoading] = useState(false);
   const data = useSelector((data) => data);
   const dispatch = useDispatch();
+  const { uid, setUID } = useContext(AppStateContext);
   const handleClick = async () => {
     followState == "Follow"
       ? handleFollow(userData, data.addUser.user, dispatch)
@@ -25,24 +28,30 @@ const Header1 = ({ posts, userData, isSearch }) => {
   };
 
   const handlePress = async () => {
+    if (isSearch) {
+      return;
+    }
     setTimeout(() => {
       setAvatarLoading(true);
     }, 1000);
-    !isSearch && handlePost(changeAvatar, () => setAvatarLoading(false));
+    handlePost(changeAvatar, () => setAvatarLoading(false));
   };
   const changeAvatar = async (url) => {
-    await setDoc(
-      doc(db, "users", userData.uid),
-      {
-        avatar: url,
-      },
-      { merge: true }
-    );
-    dispatch(getUserData());
+    await setDoc(doc(db, "avatars", userData.uid), {
+      avatar: url,
+      uid: userData.uid,
+    });
+    setUID({ ...uid, [userData.uid]: url });
   };
   const followState = data?.addUser?.user?.following?.includes(userData.uid)
     ? "Unfollow"
     : "Follow";
+
+  useEffect(() => {
+    if (!uid[userData.uid]) {
+      getAvatar(userData.uid, setUID);
+    }
+  }, []);
   return (
     <View>
       <View style={styles.cont}>
@@ -67,7 +76,7 @@ const Header1 = ({ posts, userData, isSearch }) => {
                 onLoadEnd={() => setAvatarLoading(false)}
                 source={{
                   uri: `${
-                    userData.avatar ||
+                    uid[userData.uid] ||
                     "https://bombyxplm.com/wp-content/uploads/2021/01/421-4213053_default-avatar-icon-hd-png-download.png"
                   }`,
                 }}
@@ -89,7 +98,7 @@ const Header1 = ({ posts, userData, isSearch }) => {
             )}
 
             <Text style={{ marginTop: 5, fontWeight: "600" }}>
-              {userData.displayName}
+              {userData.username}
             </Text>
           </View>
         </View>
@@ -122,7 +131,10 @@ const Header1 = ({ posts, userData, isSearch }) => {
           </Text>
         </TouchableOpacity>
       ) : (
-        <TouchableOpacity style={styles.editProfile}>
+        <TouchableOpacity
+          style={styles.editProfile}
+          onPress={() => console.log("----------", uid)}
+        >
           <Text style={{ textAlign: "center", fontWeight: "600" }}>
             Edit Profile
           </Text>

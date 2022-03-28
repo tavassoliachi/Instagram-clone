@@ -1,14 +1,16 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  TouchableOpacity,
-  ActivityIndicator,
-} from "react-native";
-import React, { useState } from "react";
-
+import { StyleSheet, Text, View, Image } from "react-native";
+import React, { useEffect, useState } from "react";
+import getAvatar from "../../getAvatar";
+import { useContext } from "react";
+import { AppStateContext } from "../../../Context";
 const PostHeader = ({ data }) => {
+  const postData = data.section.data[0];
+  const { uid, setUID } = useContext(AppStateContext);
+  useEffect(() => {
+    if (!uid[postData.uid]) {
+      getAvatar(postData.uid, setUID);
+    }
+  }, []);
   return (
     <View style={styles.cont}>
       <View style={styles.subCont}>
@@ -22,12 +24,14 @@ const PostHeader = ({ data }) => {
           }}
           source={{
             uri:
-              data.section.data[0].avatar ||
+              uid[postData.uid] ||
               "https://bombyxplm.com/wp-content/uploads/2021/01/421-4213053_default-avatar-icon-hd-png-download.png",
           }}
         />
 
-        <Text style={styles.username}>{data.section.data[0].username}</Text>
+        <Text style={styles.username} onPress={() => console.log(uid)}>
+          {postData.username}
+        </Text>
       </View>
       <Text style={styles.seeMore}>...</Text>
     </View>

@@ -28,7 +28,7 @@ const Register1 = ({ navigation }) => {
   const [username, setUsername] = useState("");
   const handleSubmit = () => {
     createUserWithEmailAndPassword(auth, mail, password).then(async () => {
-      await updateProfile(auth.currentUser, { displayName: `${username}` });
+      await updateProfile(auth.currentUser, { username: `${username}` });
       let searchQuery = [];
       let searchKeyword = "";
       for (let i = 0; i < username.length; i++) {

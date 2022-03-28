@@ -4,7 +4,6 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { useSelector } from "react-redux";
 import Ionicons from "react-native-vector-icons/Ionicons";
 const ContentHeader = ({ username }) => {
-  // const username = useSelector((data) => data.user.displayName);
   return (
     <View
       style={{

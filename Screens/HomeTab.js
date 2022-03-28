@@ -5,7 +5,9 @@ import Stories from "../components/HomeTab/Stories/Stories";
 import Header from "../components/HomeTab/Header";
 import PostHeader from "../components/HomeTab/Posts/PostHeader";
 import PostFooter from "../components/HomeTab/Posts/PostFooter";
+import { useContext } from "react";
 import { useSelector } from "react-redux";
+import { AppStateContext } from "../Context";
 const HomeTab = () => {
   const data = useSelector((data) => data?.posts.recentPosts);
   return (
