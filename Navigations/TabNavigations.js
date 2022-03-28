@@ -13,6 +13,7 @@ import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import ProfileTab from "../Screens/ProfileTab";
 import SearchNavigations from "./SearchNavigations";
 import { useDispatch } from "react-redux";
+import PostScreen from "../Screens/PostScreen";
 import { getPosts } from "../Redux/Actions";
 const TabNavigations = () => {
   const Tab = createBottomTabNavigator();
@@ -51,7 +52,7 @@ const TabNavigations = () => {
       />
       <Tab.Screen
         name="newPost"
-        component={ProfileTab}
+        component={PostScreen}
         options={{
           tabBarIcon: ({ focused }) => (
             <FontAwesome name="plus-square-o" size={30} />

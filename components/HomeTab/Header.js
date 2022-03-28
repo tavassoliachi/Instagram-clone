@@ -1,16 +1,7 @@
-import { StyleSheet, View, Image, Platform } from "react-native";
+import { StyleSheet, View, Image } from "react-native";
 import React from "react";
 import Feather from "react-native-vector-icons/Feather";
-import { doc, setDoc } from "firebase/firestore";
-import { db } from "../../Firebase-config";
-import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import { useSelector } from "react-redux";
-import * as ImagePicker from "expo-image-picker";
-import { auth } from "../../Firebase-config";
-import handlePost from "../handlePost";
-import { useDispatch } from "react-redux";
-import { getPosts } from "../../Redux/Actions";
 import { useNavigation } from "@react-navigation/native";
 const Header = () => {
   const navigation = useNavigation();
