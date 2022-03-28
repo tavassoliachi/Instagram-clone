@@ -12,21 +12,13 @@ const RenderComment = ({ data, type }) => {
   useEffect(() => {
     let { title, value } = getDate(data.createDate);
     setDate(`${value + title[0]}`);
-    getAvatar(data.uid, setUID);
+    if (!uid[data.uid]) {
+      getAvatar(data.uid, setUID);
+    }
   }, []);
 
   return (
-    <View
-      style={{
-        justifyContent: "center",
-        width: "100%",
-        flexDirection: "row",
-        paddingHorizontal: 3,
-        paddingVertical: 13,
-        borderBottomColor: "#ededed",
-        borderBottomWidth: owner && 1,
-      }}
-    >
+    <View style={{ ...styles.commentCont, borderBottomWidth: owner && 1 }}>
       <View style={{ width: "10%", marginRight: 10 }}>
         <Image
           source={{
@@ -34,12 +26,7 @@ const RenderComment = ({ data, type }) => {
               uid[data.uid] ||
               "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
           }}
-          style={{
-            width: 35,
-            height: 35,
-            borderRadius: 17.5,
-            backgroundColor: "#c4c4c4",
-          }}
+          style={styles.image}
         />
       </View>
 
@@ -54,27 +41,9 @@ const RenderComment = ({ data, type }) => {
         <View style={{ flexDirection: "row", paddingTop: 5 }}>
           <Text style={{ color: "gray", fontSize: 12 }}>{date}</Text>
           {owner ? (
-            <Text
-              style={{
-                paddingLeft: 20,
-                color: "gray",
-                fontSize: 12,
-                fontWeight: "700",
-              }}
-            >
-              See Translation
-            </Text>
+            <Text style={styles.txt}>See Translation</Text>
           ) : (
-            <Text
-              style={{
-                paddingLeft: 20,
-                color: "gray",
-                fontSize: 12,
-                fontWeight: "700",
-              }}
-            >
-              Reply
-            </Text>
+            <Text style={styles.txt}>Reply</Text>
           )}
         </View>
       </View>
@@ -92,4 +61,25 @@ const RenderComment = ({ data, type }) => {
 
 export default RenderComment;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  commentCont: {
+    justifyContent: "center",
+    width: "100%",
+    flexDirection: "row",
+    paddingHorizontal: 3,
+    paddingVertical: 13,
+    borderBottomColor: "#ededed",
+  },
+  image: {
+    width: 35,
+    height: 35,
+    borderRadius: 17.5,
+    backgroundColor: "#c4c4c4",
+  },
+  txt: {
+    paddingLeft: 20,
+    color: "gray",
+    fontSize: 12,
+    fontWeight: "700",
+  },
+});

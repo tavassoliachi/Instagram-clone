@@ -3,34 +3,18 @@ import React from "react";
 
 const LoadingScreen = () => {
   return (
-    <View
-      style={{
-        flex: 1,
-        backgroundColor: "white",
-        alignItems: "center",
-        justifyContent: "space-between",
-      }}
-    >
+    <View style={styles.mainCont}>
       <View style={{ height: "85%", justifyContent: "center" }}>
         <Image
           source={require("../assets/Instagram-logo.png")}
-          style={{ width: 80, height: 80, marginTop: 70 }}
+          style={styles.image}
         />
       </View>
       <View>
-        <Text
-          style={{
-            textAlign: "center",
-            color: "#c4c4c4",
-            fontWeight: "500",
-            fontSize: 15,
-          }}
-        >
-          from
-        </Text>
+        <Text style={styles.txt}>from</Text>
         <Image
           source={require("../assets/meta-logo.png")}
-          style={{ height: 40, resizeMode: "contain", bottom: 0, right: 0 }}
+          style={styles.metaImage}
         />
       </View>
     </View>
@@ -39,4 +23,28 @@ const LoadingScreen = () => {
 
 export default LoadingScreen;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  mainCont: {
+    flex: 1,
+    backgroundColor: "white",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  image: {
+    width: 80,
+    height: 80,
+    marginTop: 70,
+  },
+  txt: {
+    textAlign: "center",
+    color: "#c4c4c4",
+    fontWeight: "500",
+    fontSize: 15,
+  },
+  metaImage: {
+    height: 40,
+    resizeMode: "contain",
+    bottom: 0,
+    right: 0,
+  },
+});

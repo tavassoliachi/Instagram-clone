@@ -36,6 +36,7 @@ const Header1 = ({ posts, userData, isSearch }) => {
     }, 1000);
     handlePost(changeAvatar, () => setAvatarLoading(false));
   };
+
   const changeAvatar = async (url) => {
     await setDoc(doc(db, "avatars", userData.uid), {
       avatar: url,
@@ -43,6 +44,7 @@ const Header1 = ({ posts, userData, isSearch }) => {
     });
     setUID({ ...uid, [userData.uid]: url });
   };
+
   const followState = data?.addUser?.user?.following?.includes(userData.uid)
     ? "Unfollow"
     : "Follow";
@@ -52,6 +54,7 @@ const Header1 = ({ posts, userData, isSearch }) => {
       getAvatar(userData.uid, setUID);
     }
   }, []);
+
   return (
     <View>
       <View style={styles.cont}>
@@ -64,12 +67,7 @@ const Header1 = ({ posts, userData, isSearch }) => {
           <View style={{ width: "70%", alignItems: "center" }}>
             <TouchableOpacity onLongPress={handlePress}>
               <Image
-                style={{
-                  width: 100,
-                  height: 100,
-                  borderRadius: 50,
-                  backgroundColor: "#c4c4c4",
-                }}
+                style={styles.image}
                 onLoadStart={() =>
                   avatarLoading == false && setAvatarLoading(true)
                 }
@@ -84,17 +82,7 @@ const Header1 = ({ posts, userData, isSearch }) => {
             </TouchableOpacity>
 
             {avatarLoading && (
-              <ActivityIndicator
-                color="white"
-                style={{
-                  width: 100,
-                  height: 100,
-                  borderRadius: 50,
-                  backgroundColor: "#c4c4c4",
-                  justifyContent: "center",
-                  position: "absolute",
-                }}
-              />
+              <ActivityIndicator color="white" style={styles.loading} />
             )}
 
             <Text style={{ marginTop: 5, fontWeight: "600" }}>
@@ -103,22 +91,16 @@ const Header1 = ({ posts, userData, isSearch }) => {
           </View>
         </View>
         <View style={styles.profileDetails}>
-          <View style={{ alignItems: "center" }}>
-            <Text style={{ fontWeight: "600" }}>{posts}</Text>
-            <Text style={{ fontWeight: "300" }}>Posts</Text>
-          </View>
-          <View style={{ alignItems: "center" }}>
-            <Text style={{ fontWeight: "600" }}>
-              {userData.followers.length}
-            </Text>
-            <Text style={{ fontWeight: "300" }}>Followers</Text>
-          </View>
-          <View style={{ alignItems: "center" }}>
-            <Text style={{ fontWeight: "600" }}>
-              {userData.following.length}
-            </Text>
-            <Text style={{ fontWeight: "300" }}>Following</Text>
-          </View>
+          {[
+            { num: posts, title: "Posts" },
+            { num: userData.followers.length, title: "Followers" },
+            { num: userData.following.length, title: "Following" },
+          ].map((el) => (
+            <View style={{ alignItems: "center" }}>
+              <Text style={styles.title}>{el.num}</Text>
+              <Text style={styles.txt}>{el.title}</Text>
+            </View>
+          ))}
         </View>
       </View>
       {isSearch ? (
@@ -166,5 +148,25 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     marginHorizontal: 20,
     marginBottom: 20,
+  },
+  image: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    backgroundColor: "#c4c4c4",
+  },
+  loading: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    backgroundColor: "#c4c4c4",
+    justifyContent: "center",
+    position: "absolute",
+  },
+  title: {
+    fontWeight: "600",
+  },
+  txt: {
+    fontWeight: "300",
   },
 });

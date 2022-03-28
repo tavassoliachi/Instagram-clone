@@ -12,8 +12,7 @@ import { query, where, collection, getDocs } from "firebase/firestore";
 import { db } from "../Firebase-config";
 import { useDispatch } from "react-redux";
 import { getSearchedProfile } from "../Redux/Actions";
-import { getUserData } from "../Redux/Actions";
-import { auth } from "../Firebase-config";
+import SearchRes from "../components/SearchRes";
 const SearchTab = ({ navigation }) => {
   const dispatch = useDispatch();
   const [search, setSeach] = useState("");
@@ -33,17 +32,11 @@ const SearchTab = ({ navigation }) => {
       setResults(resArr);
     })();
   }, [search]);
-  const currUid = auth.currentUser.uid;
   return (
     <View style={{ flex: 1, backgroundColor: "white" }}>
       <View style={{ position: "relative", margin: 20 }}>
         <TextInput
-          style={{
-            backgroundColor: "#dedede",
-            padding: 10,
-            paddingLeft: 35,
-            borderRadius: 5,
-          }}
+          style={styles.input}
           value={search}
           onChangeText={setSeach}
           placeholder="Search"
@@ -57,26 +50,7 @@ const SearchTab = ({ navigation }) => {
         {results && (
           <FlatList
             data={results}
-            renderItem={({ item }) => (
-              <TouchableOpacity
-                onPress={() =>
-                  item.uid == currUid
-                    ? navigation.navigate("profile")
-                    : (navigation.push("searchProfile", {
-                        search: true,
-                        uid: item.uid,
-                      }),
-                      dispatch(getUserData(item.uid)))
-                }
-                style={{
-                  marginVertical: 5,
-                  padding: 20,
-                  backgroundColor: "#dedede",
-                }}
-              >
-                <Text>{item.username}</Text>
-              </TouchableOpacity>
-            )}
+            renderItem={({ item }) => <SearchRes data={item} />}
           />
         )}
       </View>
@@ -86,4 +60,11 @@ const SearchTab = ({ navigation }) => {
 
 export default SearchTab;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  input: {
+    backgroundColor: "#dedede",
+    padding: 10,
+    paddingLeft: 35,
+    borderRadius: 5,
+  },
+});

@@ -14,28 +14,7 @@ import { getPosts } from "../../Redux/Actions";
 import { useNavigation } from "@react-navigation/native";
 const Header = () => {
   const navigation = useNavigation();
-  // const dispatch = useDispatch();
-  // const data = useSelector((el) => el?.addUser.user);
-  // const uploadPost = async (url) => {
-  //   await setDoc(
-  //     doc(
-  //       db,
-  //       "posts",
-  //       `${data.uid + "-" + (Math.random() + Math.random()).toString()}`
-  //     ),
-  //     {
-  //       img: url,
-  //       name: `${data.uid + "-" + (Math.random() + Math.random()).toString()}`,
-  //       username: data.displayName,
-  //       uid: data.uid,
-  //       createDate: Date.now(),
-  //       likes: [],
-  //       comments: [],
-  //       avatar: data.avatar || "",
-  //     }
-  //   );
-  //   dispatch(getPosts());
-  // };
+
   return (
     <View style={styles.cont}>
       <Image

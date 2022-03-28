@@ -11,7 +11,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import Feather from "react-native-vector-icons/Feather";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { useSelector } from "react-redux";
 import { db } from "../Firebase-config";
@@ -19,6 +19,8 @@ import { setDoc, doc } from "firebase/firestore";
 import { getPosts } from "../Redux/Actions";
 import { useDispatch } from "react-redux";
 import RenderComment from "../components/RenderComment";
+import getAvatar from "../components/getAvatar";
+import { AppStateContext } from "../Context";
 const CommentScreen = ({ route, navigation }) => {
   const dispatch = useDispatch();
   const [comment, setComment] = useState("");
@@ -63,16 +65,17 @@ const CommentScreen = ({ route, navigation }) => {
     dispatch(getPosts());
   };
 
+  const { uid, setUID } = useContext(AppStateContext);
+  useEffect(() => {
+    if (!uid[currUser.uid]) {
+      getAvatar(currUser.uid, setUID);
+    }
+  }, []);
   return (
     <KeyboardAvoidingView
       keyboardVerticalOffset={100}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
-      style={{
-        flex: 1,
-        backgroundColor: "white",
-        alignItems: "center",
-        justifyContent: "space-between",
-      }}
+      style={styles.mainCont}
     >
       <ScrollView>
         {currPost.text && <RenderComment data={data} type="owner" />}
@@ -80,42 +83,16 @@ const CommentScreen = ({ route, navigation }) => {
           <RenderComment data={el} />
         ))}
       </ScrollView>
-      <View
-        style={{
-          //   bottom: 40,
-          //   height: "100%",
-          borderTopColor: "#ededed",
-          borderTopWidth: 1,
-          width: "100%",
-          paddingVertical: 10,
-          flexDirection: "row",
-          justifyContent: "center",
-        }}
-      >
+      <View style={styles.cont}>
         <Image
           source={{
             uri:
-              currUser.avatar ||
+              uid[currUser.uid] ||
               "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
           }}
-          style={{
-            width: 50,
-            height: 50,
-            borderRadius: 25,
-            marginRight: 10,
-            backgroundColor: "#c4c4c4",
-          }}
+          style={styles.avatar}
         />
-        <View
-          style={{
-            width: "75%",
-            borderWidth: 1,
-            borderColor: "#ededed",
-            borderRadius: 20,
-            paddingLeft: 10,
-            justifyContent: "center",
-          }}
-        >
+        <View style={styles.inputCont}>
           <TextInput
             placeholder="Add a comment..."
             value={comment}
@@ -123,13 +100,7 @@ const CommentScreen = ({ route, navigation }) => {
           />
 
           <Text
-            style={{
-              position: "absolute",
-              right: 10,
-              fontWeight: "700",
-              color: "#489cf0",
-              opacity: comment.length ? 1 : 0.4,
-            }}
+            style={{ ...styles.submit, opacity: comment.length ? 1 : 0.4 }}
             onPress={handlePost}
           >
             Post
@@ -142,4 +113,40 @@ const CommentScreen = ({ route, navigation }) => {
 
 export default CommentScreen;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  mainCont: {
+    flex: 1,
+    backgroundColor: "white",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  cont: {
+    borderTopColor: "#ededed",
+    borderTopWidth: 1,
+    width: "100%",
+    paddingVertical: 10,
+    flexDirection: "row",
+    justifyContent: "center",
+  },
+  avatar: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    marginRight: 10,
+    backgroundColor: "#c4c4c4",
+  },
+  inputCont: {
+    width: "75%",
+    borderWidth: 1,
+    borderColor: "#ededed",
+    borderRadius: 20,
+    paddingLeft: 10,
+    justifyContent: "center",
+  },
+  submit: {
+    position: "absolute",
+    right: 10,
+    fontWeight: "700",
+    color: "#489cf0",
+  },
+});

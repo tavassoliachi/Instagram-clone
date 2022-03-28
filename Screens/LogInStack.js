@@ -25,13 +25,7 @@ const LogInStack = () => {
       style={styles.container}
     >
       <LoginErrorModal modal={modal} setModal={setModal} />
-      <View
-        style={{
-          alignItems: "center",
-          width: "100%",
-          paddingHorizontal: 20,
-        }}
-      >
+      <View style={styles.logoCont}>
         <Image
           source={require("../assets/headerLogo.png")}
           style={{ height: 65, resizeMode: "contain" }}
@@ -51,5 +45,10 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+  },
+  logoCont: {
+    alignItems: "center",
+    width: "100%",
+    paddingHorizontal: 20,
   },
 });

@@ -36,27 +36,9 @@ const PostFooter = ({ data }) => {
     setDate(`${value + " " + title + " ago"}`);
   }, []);
   return (
-    <View
-      style={{
-        justifyContent: "space-between",
-        paddingHorizontal: 12,
-      }}
-    >
-      <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "space-between",
-          width: "100%",
-          marginBottom: 10,
-        }}
-      >
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            width: "25%",
-          }}
-        >
+    <View style={styles.mainCont}>
+      <View style={styles.icons}>
+        <View style={styles.iconsSubCont}>
           <FontAwesome
             name={likes ? "heart" : "heart-o"}
             color={likes ? "red" : "black"}
@@ -84,7 +66,10 @@ const PostFooter = ({ data }) => {
       </Text>
 
       {commentsN > 0 && (
-        <Text style={{ color: "gray", marginBottom: 5 }}>
+        <Text
+          style={{ color: "gray", marginBottom: 5 }}
+          onPress={() => navigation.push("commentScreen", { data: postData })}
+        >
           View all {commentsN} comments
         </Text>
       )}
@@ -97,4 +82,20 @@ const PostFooter = ({ data }) => {
 
 export default PostFooter;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  mainCont: {
+    // justifyContent: "space-between",
+    paddingHorizontal: 12,
+  },
+  icons: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "100%",
+    marginBottom: 10,
+  },
+  iconsSubCont: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "25%",
+  },
+});

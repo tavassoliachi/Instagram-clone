@@ -8,17 +8,7 @@ const Header2 = () => {
 
   return (
     <View style={{ backgroundColor: "white" }}>
-      <View
-        style={{
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "space-between",
-          borderColor: "#c4c4c4",
-          borderTopWidth: 1,
-          borderBottomWidth: 1,
-          height: 50,
-        }}
-      >
+      <View style={styles.iconsCont}>
         <MaterialCommunityIcons
           name="grid"
           size={25}
@@ -41,4 +31,14 @@ const Header2 = () => {
 
 export default Header2;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  iconsCont: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    borderColor: "#c4c4c4",
+    borderTopWidth: 1,
+    borderBottomWidth: 1,
+    height: 50,
+  },
+});

@@ -5,14 +5,7 @@ import { useSelector } from "react-redux";
 import Ionicons from "react-native-vector-icons/Ionicons";
 const ContentHeader = ({ username }) => {
   return (
-    <View
-      style={{
-        alignItems: "center",
-        padding: 15,
-        flexDirection: "row",
-        justifyContent: "space-between",
-      }}
-    >
+    <View style={styles.mainCont}>
       <Text style={{ fontSize: 20, fontWeight: "bold" }}>{username}</Text>
       <View style={{ flexDirection: "row" }}>
         <FontAwesome
@@ -28,4 +21,11 @@ const ContentHeader = ({ username }) => {
 
 export default ContentHeader;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  mainCont: {
+    alignItems: "center",
+    padding: 15,
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+});

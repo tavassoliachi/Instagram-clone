@@ -59,14 +59,7 @@ const Register1 = ({ navigation }) => {
         onPress={() => navigation.goBack()}
       />
       <View style={{ alignItems: "center" }}>
-        <Text
-          style={{
-            textAlign: "center",
-            fontSize: 26,
-            fontWeight: "300",
-            width: "75%",
-          }}
-        >
+        <Text style={styles.loginInfo}>
           Enter phone number or email address
         </Text>
         <View
@@ -110,47 +103,20 @@ const Register1 = ({ navigation }) => {
           </View>
         </View>
         <TextInput
-          style={{
-            height: 40,
-            margin: 12,
-            borderWidth: 1,
-            borderColor: "#c4c4c4",
-            backgroundColor: "#f5f5f5",
-            borderRadius: 3,
-            width: "80%",
-            paddingLeft: 10,
-          }}
+          style={styles.input}
           placeholder="Email"
           value={mail}
           onChangeText={setMail}
         />
         <TextInput
-          style={{
-            height: 40,
-            margin: 12,
-            borderWidth: 1,
-            borderColor: "#c4c4c4",
-            backgroundColor: "#f5f5f5",
-            borderRadius: 3,
-            width: "80%",
-            paddingLeft: 10,
-          }}
+          style={styles.input}
           placeholder="Password"
           secureTextEntry
           value={password}
           onChangeText={setPassword}
         />
         <TextInput
-          style={{
-            height: 40,
-            margin: 12,
-            borderWidth: 1,
-            borderColor: "#c4c4c4",
-            backgroundColor: "#f5f5f5",
-            borderRadius: 3,
-            width: "80%",
-            paddingLeft: 10,
-          }}
+          style={styles.input}
           placeholder="Username"
           value={username}
           onChangeText={setUsername}
@@ -158,25 +124,46 @@ const Register1 = ({ navigation }) => {
         <TouchableOpacity
           key={username + password + mail}
           style={{
-            backgroundColor: "#489cf0",
+            ...styles.submit,
             width: Dimensions.get("window").width - 80,
-            paddingVertical: 13,
-            borderRadius: 3,
-            marginTop: 20,
             opacity: username && password && mail ? 1 : 0.6,
           }}
           disabled={!(username && password && mail)}
           onPress={handleSubmit}
         >
-          <Text
-            style={{ textAlign: "center", color: "white", fontWeight: "700" }}
-          >
-            Next
-          </Text>
+          <Text style={styles.next}>Next</Text>
         </TouchableOpacity>
       </View>
     </View>
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  loginInfo: {
+    textAlign: "center",
+    fontSize: 26,
+    fontWeight: "300",
+    width: "75%",
+  },
+  next: {
+    textAlign: "center",
+    color: "white",
+    fontWeight: "700",
+  },
+  submit: {
+    backgroundColor: "#489cf0",
+    paddingVertical: 13,
+    borderRadius: 3,
+    marginTop: 20,
+  },
+  input: {
+    height: 40,
+    margin: 12,
+    borderWidth: 1,
+    borderColor: "#c4c4c4",
+    backgroundColor: "#f5f5f5",
+    borderRadius: 3,
+    width: "80%",
+    paddingLeft: 10,
+  },
+});

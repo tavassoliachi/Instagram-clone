@@ -68,29 +68,12 @@ const PostScreen = ({ navigation }) => {
 
   const horizontalPadding = 15;
   return (
-    <View style={{ flex: 1, backgroundColor: "white" }}>
-      <View
-        style={{
-          marginVertical: 10,
-          flexDirection: "row",
-          marginHorizontal: 15,
-        }}
-      >
-        <View
-          style={{
-            width: 90,
-            height: 80,
-            backgroundColor: "#c4c4c4",
-            alignItems: "center",
-          }}
-        >
+    <View style={styles.mainCont}>
+      <View style={styles.cont1}>
+        <View style={styles.cont2}>
           {url && (
             <Image
-              style={{
-                width: 90,
-                height: 80,
-                resizeMode: "contain",
-              }}
+              style={styles.image}
               onLoadEnd={() => setLoading(false)}
               source={{
                 uri: url,
@@ -98,92 +81,33 @@ const PostScreen = ({ navigation }) => {
             />
           )}
           {loading && (
-            <ActivityIndicator
-              color="white"
-              style={{
-                width: 80,
-                height: 80,
-                position: "absolute",
-              }}
-            />
+            <ActivityIndicator color="white" style={styles.loading} />
           )}
         </View>
         <TextInput
           placeholder="Write a caption..."
           onChangeText={setText}
           value={text}
-          style={{
-            width: "80%",
-            alignSelf: "flex-start",
-            flex: 1,
-            padding: 10,
-            flexWrap: "wrap",
-          }}
+          style={styles.input}
         />
       </View>
-      <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "space-between",
-          borderBottomWidth: 1,
-          borderTopWidth: 1,
-          borderColor: "#c4c4c4",
-          paddingVertical: 13,
-          paddingHorizontal: horizontalPadding,
-          alignItems: "center",
-        }}
-      >
+      <View style={{ ...styles.tagCont, paddingHorizontal: horizontalPadding }}>
         <Text>Tag people</Text>
         <MaterialIcons name="arrow-forward-ios" size={15} color="#494949" />
       </View>
       <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "space-between",
-          borderBottomWidth: 1,
-          borderColor: "#c4c4c4",
-          paddingVertical: 13,
-          paddingHorizontal: horizontalPadding,
-          alignItems: "center",
-        }}
+        style={{ ...styles.locationCont, paddingHorizontal: horizontalPadding }}
       >
         <Text>Add Location</Text>
         <MaterialIcons name="arrow-forward-ios" size={15} color="#c4c4c4" />
       </View>
       <View style={{ paddingHorizontal: horizontalPadding }}>
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-between",
-            marginTop: 10,
-          }}
-        >
-          <Text>Facebook</Text>
-          <Switch />
-        </View>
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-between",
-            marginTop: 10,
-          }}
-        >
-          <Text>Twitter</Text>
-          <Switch />
-        </View>
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-between",
-            marginTop: 10,
-          }}
-        >
-          <Text>Tumblr</Text>
-          <Switch />
-        </View>
+        {["Facebook", "Twitter", "Tumblr"].map((el) => (
+          <View style={styles.socialMedia}>
+            <Text>{el}</Text>
+            <Switch />
+          </View>
+        ))}
       </View>
     </View>
   );
@@ -191,4 +115,57 @@ const PostScreen = ({ navigation }) => {
 
 export default PostScreen;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  mainCont: { flex: 1, backgroundColor: "white" },
+  cont1: {
+    marginVertical: 10,
+    flexDirection: "row",
+    marginHorizontal: 15,
+  },
+  cont2: {
+    width: 90,
+    height: 80,
+    backgroundColor: "#c4c4c4",
+    alignItems: "center",
+  },
+  socialMedia: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginTop: 10,
+  },
+  locationCont: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    borderBottomWidth: 1,
+    borderColor: "#c4c4c4",
+    paddingVertical: 13,
+    alignItems: "center",
+  },
+  tagCont: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    borderBottomWidth: 1,
+    borderTopWidth: 1,
+    borderColor: "#c4c4c4",
+    paddingVertical: 13,
+    alignItems: "center",
+  },
+  input: {
+    width: "80%",
+    alignSelf: "flex-start",
+    flex: 1,
+    padding: 10,
+    flexWrap: "wrap",
+  },
+  loading: {
+    width: 80,
+    height: 80,
+    position: "absolute",
+  },
+  image: {
+    width: 90,
+    height: 80,
+    resizeMode: "contain",
+  },
+});

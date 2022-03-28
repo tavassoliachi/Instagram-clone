@@ -1,11 +1,11 @@
-import userAdd from "./Consts";
+import { auth, post, search } from "./Consts";
 export const addUser = (state = {}, action) => {
   switch (action.type) {
-    case "login":
+    case auth.login:
       return {
         user: action.payload,
       };
-    case "logout":
+    case auth.logout:
       return {
         user: {},
       };
@@ -15,11 +15,11 @@ export const addUser = (state = {}, action) => {
 };
 export const searchedProfile = (state = {}, action) => {
   switch (action.type) {
-    case "attachSearchRes":
+    case search.attach:
       return {
         searchedData: action.payload,
       };
-    case "detachSearchRes":
+    case search.detach:
       return {
         searchedData: {},
       };
@@ -29,11 +29,11 @@ export const searchedProfile = (state = {}, action) => {
 };
 export const posts = (state = {}, action) => {
   switch (action.type) {
-    case "attachPosts":
+    case post.attach:
       return {
         recentPosts: action.payload,
       };
-    case "detachPosts":
+    case post.detach:
       return {
         recentPosts: {},
       };
