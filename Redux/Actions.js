@@ -1,7 +1,9 @@
 import { getAuth } from "firebase/auth";
 import { userAdd } from "./Consts";
 import { db } from "../Firebase-config";
+import { useSelector } from "react-redux";
 import { where, collection, query, getDocs, orderBy } from "firebase/firestore";
+import { dismiss } from "react-native/Libraries/LogBox/Data/LogBoxData";
 
 async function getData(collectionName, uid) {
   const q = query(collection(db, collectionName), where("uid", "==", uid));
@@ -24,7 +26,7 @@ export const getUserData = (id) => async (dispatch) => {
   dispatch({
     type: `${id ? "attachSearchRes" : "login"}`,
     payload: {
-      displayName: userData.username,
+      username: userData.username,
       uid: userData.uid,
       following: userData.following,
       followers: userData.followers,
@@ -49,3 +51,4 @@ export const getPosts = () => async (dispatch) => {
   });
   dispatch({ type: "attachPosts", payload: data });
 };
+export const getAvatar = (uid) => async (dispatch) => {};
