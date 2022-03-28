@@ -1,12 +1,30 @@
-import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import React, { useState } from "react";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { useSelector } from "react-redux";
 import Ionicons from "react-native-vector-icons/Ionicons";
-const ContentHeader = ({ username }) => {
+import MaterialIcons from "react-native-vector-icons/MaterialIcons";
+import AuthModal from "./AuthModal";
+const ContentHeader = ({ username, isSearch }) => {
+  const [modal, setModal] = useState(false);
+  const handlePress = () => {
+    if (!isSearch) {
+      setModal(true);
+    }
+  };
   return (
     <View style={styles.mainCont}>
-      <Text style={{ fontSize: 20, fontWeight: "bold" }}>{username}</Text>
+      <AuthModal modal={modal} setModal={setModal} />
+      <TouchableOpacity style={{ flexDirection: "row" }} onPress={handlePress}>
+        <Text style={{ fontSize: 20, fontWeight: "bold" }}>{username}</Text>
+        {!isSearch && (
+          <MaterialIcons
+            name="keyboard-arrow-down"
+            size={25}
+            style={{ alignSelf: "flex-start" }}
+          />
+        )}
+      </TouchableOpacity>
       <View style={{ flexDirection: "row" }}>
         <FontAwesome
           name="plus-square-o"

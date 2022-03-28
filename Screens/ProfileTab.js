@@ -31,7 +31,7 @@ const ProfileTab = ({ route }) => {
 
   return (
     <View style={{ flex: 1, backgroundColor: "white" }}>
-      <ContentHeader username={userData?.username} />
+      <ContentHeader username={userData?.username} isSearch={isSearch} />
       {userData && (
         <SectionList
           ListHeaderComponent={() => (

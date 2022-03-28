@@ -65,7 +65,7 @@ const Header1 = ({ posts, userData, isSearch }) => {
           }}
         >
           <View style={{ width: "70%", alignItems: "center" }}>
-            <TouchableOpacity onLongPress={handlePress}>
+            <TouchableOpacity onPress={handlePress}>
               <Image
                 style={styles.image}
                 onLoadStart={() =>
