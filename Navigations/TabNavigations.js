@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { StyleSheet, Text, View, Image } from "react-native";
+import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import SearchTab from "../Screens/SearchTab";
 import HomeTab from "../Screens/HomeTab";
@@ -57,6 +57,11 @@ const TabNavigations = () => {
           tabBarIcon: ({ focused }) => (
             <FontAwesome name="plus-square-o" size={30} />
           ),
+
+          title: "New post",
+          headerBackTitleVisible: false,
+          headerTintColor: "black",
+          headerShown: true,
         }}
       />
       <Tab.Screen
