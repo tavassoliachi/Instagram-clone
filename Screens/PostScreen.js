@@ -8,18 +8,20 @@ import {
   ActivityIndicator,
   TouchableOpacity,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { doc, setDoc } from "firebase/firestore";
 import { useSelector, useDispatch } from "react-redux";
 import { getPosts } from "../Redux/Actions";
 import { db } from "../Firebase-config";
 import handlePost from "../components/handlePost";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
+import Ionicons from "react-native-vector-icons/Ionicons";
+import { useFocusEffect } from "@react-navigation/native";
 const PostScreen = ({ navigation }) => {
   const dispatch = useDispatch();
   const data = useSelector((el) => el?.addUser.user);
   const [url, setUrl] = useState();
-  const [text, setText] = useState("");
+  const [text, setText] = useState();
   const [loading, setLoading] = useState(false);
 
   const uploadPost = async () => {
@@ -35,20 +37,31 @@ const PostScreen = ({ navigation }) => {
       likes: [],
       comments: [],
     });
-    navigation.goBack();
+
+    navigation.navigate("home");
     dispatch(getPosts());
   };
 
-  useEffect(() => {
-    handlePost(
-      (url) => setUrl(url),
-      () => navigation.goBack()
-    );
-    setLoading(true);
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      handlePost(
+        (url) => setUrl(url),
+        () => navigation.goBack()
+      );
+      setLoading(true);
+      return () => [setUrl(), setText()];
+    }, [])
+  );
 
   useEffect(() => {
     navigation.setOptions({
+      headerLeft: () => (
+        <Ionicons
+          name="chevron-back"
+          size={30}
+          onPress={() => navigation.goBack()}
+        />
+      ),
       headerRight: () => (
         <TouchableOpacity onPress={uploadPost}>
           <Text

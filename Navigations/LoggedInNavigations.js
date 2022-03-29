@@ -13,7 +13,7 @@ const LoggedInNavigations = () => {
         component={TabNavigations}
         options={{ headerShown: false }}
       />
-      <Stack.Screen
+      {/* <Stack.Screen
         name="postScreen"
         component={PostScreen}
         options={{
@@ -21,7 +21,7 @@ const LoggedInNavigations = () => {
           headerBackTitleVisible: false,
           headerTintColor: "black",
         }}
-      />
+      /> */}
       <Stack.Screen
         name="commentScreen"
         component={CommentScreen}

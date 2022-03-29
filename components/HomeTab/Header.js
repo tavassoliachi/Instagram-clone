@@ -16,7 +16,7 @@ const Header = () => {
         <Feather
           name="plus-square"
           size={25}
-          onPress={() => navigation.push("postScreen")}
+          onPress={() => navigation.navigate("newPost")}
         />
         <Feather name="heart" size={25} />
         <MaterialCommunityIcons name="facebook-messenger" size={25} />
