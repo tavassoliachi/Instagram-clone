@@ -1,9 +1,6 @@
 import { StyleSheet } from "react-native";
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import AuthStack from "../Screens/AuthStack";
-import RegisterStack from "../Screens/RegisterStack";
-import LogInStack from "../Screens/LogInStack";
 import SearchTab from "../Screens/SearchTab";
 import ProfileTab from "../Screens/ProfileTab";
 const SearchNavigations = () => {

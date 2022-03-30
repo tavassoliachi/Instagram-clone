@@ -2,7 +2,6 @@ import { StyleSheet } from "react-native";
 import React, { useState, useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import TabNavigations from "./TabNavigations";
 import AuthNavigations from "./AuthNavigations";
 import { getAuth } from "firebase/auth";
 import { useDispatch } from "react-redux";

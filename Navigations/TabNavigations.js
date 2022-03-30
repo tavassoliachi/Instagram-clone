@@ -1,15 +1,11 @@
 import React, { useEffect } from "react";
-import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import SearchTab from "../Screens/SearchTab";
 import HomeTab from "../Screens/HomeTab";
-import Feather from "react-native-vector-icons/Feather";
 import Foundation from "react-native-vector-icons/Foundation";
 import EvilIcons from "react-native-vector-icons/EvilIcons";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import ProfileTab from "../Screens/ProfileTab";
 import SearchNavigations from "./SearchNavigations";
 import { useDispatch } from "react-redux";

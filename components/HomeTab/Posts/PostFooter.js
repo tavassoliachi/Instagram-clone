@@ -11,14 +11,22 @@ import { getPosts } from "../../../Redux/Actions";
 import { useNavigation } from "@react-navigation/native";
 import { getDate } from "../../getTime";
 const PostFooter = ({ data }) => {
+  const [date, setDate] = useState("");
+  const [like, setLike] = useState(false);
+  const [likeN, setLikeN] = useState(0);
+
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const postData = data?.section.data[0];
-  const likes = postData.likes.includes(auth.currentUser.uid);
   const commentsN = postData.comments.length;
   const handlePress = async () => {
+    const status = like;
+
+    setLikeN((prev) => (like ? prev - 1 : prev + 1));
+    setLike(!like);
+
     const currUID = auth.currentUser.uid;
-    const newData = likes
+    const newData = status
       ? [...postData.likes?.filter((el) => el !== currUID)]
       : [...postData?.likes, currUID];
     await setDoc(
@@ -30,18 +38,19 @@ const PostFooter = ({ data }) => {
     );
     dispatch(getPosts());
   };
-  const [date, setDate] = useState("");
   useEffect(() => {
     let { title, value } = getDate(postData.createDate);
     setDate(`${value + " " + title + " ago"}`);
+    postData.likes.includes(auth.currentUser.uid) && setLike(true);
+    setLikeN(postData.likes.length);
   }, []);
   return (
     <View style={styles.mainCont}>
       <View style={styles.icons}>
         <View style={styles.iconsSubCont}>
           <FontAwesome
-            name={likes ? "heart" : "heart-o"}
-            color={likes ? "red" : "black"}
+            name={like ? "heart" : "heart-o"}
+            color={like ? "red" : "black"}
             size={25}
             onPress={handlePress}
           />
@@ -56,9 +65,7 @@ const PostFooter = ({ data }) => {
         <FontAwesome name="bookmark-o" size={25} />
       </View>
 
-      <Text style={{ fontWeight: "600", marginBottom: 5 }}>
-        {postData.likes.length} likes
-      </Text>
+      <Text style={{ fontWeight: "600", marginBottom: 5 }}>{likeN} likes</Text>
 
       <Text style={{ marginBottom: 5 }}>
         <Text style={{ fontWeight: "600" }}>{postData.username}</Text>{" "}
