@@ -1,11 +1,4 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  Dimensions,
-  SectionList,
-} from "react-native";
+import { StyleSheet, View, Image, Dimensions, SectionList } from "react-native";
 import React, { useEffect, useState } from "react";
 import Header1 from "../components/ProfileTab/Header1";
 import Header2 from "../components/ProfileTab/Header2";
