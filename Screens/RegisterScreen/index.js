@@ -4,11 +4,12 @@ import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { updateProfile } from "firebase/auth";
-import { auth } from "../Firebase-config";
+import { auth } from "../../Firebase-config";
 import { createStackNavigator } from "@react-navigation/stack";
 import { setDoc, doc } from "firebase/firestore";
-import { db } from "../Firebase-config";
-const RegisterStack = () => {
+import { db } from "../../Firebase-config";
+import { styles } from "./style";
+const RegisterScreen = () => {
   const Stack = createStackNavigator();
 
   return (
@@ -19,7 +20,7 @@ const RegisterStack = () => {
   );
 };
 
-export default RegisterStack;
+export default RegisterScreen;
 
 const Register1 = ({ navigation }) => {
   const [registerType, setRegisterType] = useState("email");
@@ -137,33 +138,3 @@ const Register1 = ({ navigation }) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  loginInfo: {
-    textAlign: "center",
-    fontSize: 26,
-    fontWeight: "300",
-    width: "75%",
-  },
-  next: {
-    textAlign: "center",
-    color: "white",
-    fontWeight: "700",
-  },
-  submit: {
-    backgroundColor: "#489cf0",
-    paddingVertical: 13,
-    borderRadius: 3,
-    marginTop: 20,
-  },
-  input: {
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
-    borderColor: "#c4c4c4",
-    backgroundColor: "#f5f5f5",
-    borderRadius: 3,
-    width: "80%",
-    paddingLeft: 10,
-  },
-});

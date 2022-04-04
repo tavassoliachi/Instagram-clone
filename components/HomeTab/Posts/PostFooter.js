@@ -7,7 +7,7 @@ import { auth } from "../../../Firebase-config";
 import { setDoc, doc } from "firebase/firestore";
 import { db } from "../../../Firebase-config";
 import { useDispatch } from "react-redux";
-import { getPosts } from "../../../Redux/Actions";
+import { getPosts } from "../../../Redux/Actions/user/getPosts";
 import { useNavigation } from "@react-navigation/native";
 import { getDate } from "../../getTime";
 const PostFooter = ({ data }) => {
@@ -25,6 +25,7 @@ const PostFooter = ({ data }) => {
     setLikeN((prev) => (like ? prev - 1 : prev + 1));
     setLike(!like);
 
+    console.log(status);
     const currUID = auth.currentUser.uid;
     const newData = status
       ? [...postData.likes?.filter((el) => el !== currUID)]

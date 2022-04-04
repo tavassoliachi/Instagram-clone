@@ -1,26 +1,23 @@
 import {
-  StyleSheet,
   Text,
   View,
   TextInput,
   Image,
-  SafeAreaView,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
-  TouchableOpacity,
 } from "react-native";
-import Feather from "react-native-vector-icons/Feather";
 import React, { useEffect, useState, useContext } from "react";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { useSelector } from "react-redux";
-import { db } from "../Firebase-config";
+import { db } from "../../Firebase-config";
 import { setDoc, doc } from "firebase/firestore";
-import { getPosts } from "../Redux/Actions";
+import { getPosts } from "../../Redux/Actions/user/getPosts";
 import { useDispatch } from "react-redux";
-import RenderComment from "../components/RenderComment";
-import getAvatar from "../components/getAvatar";
-import { AppStateContext } from "../Context";
+import RenderComment from "../../components/RenderComment";
+import getAvatar from "../../components/getAvatar";
+import { AppStateContext } from "../../Context";
+import { styles } from "./styles";
 const CommentScreen = ({ route, navigation }) => {
   const dispatch = useDispatch();
   const [comment, setComment] = useState("");
@@ -112,41 +109,3 @@ const CommentScreen = ({ route, navigation }) => {
 };
 
 export default CommentScreen;
-
-const styles = StyleSheet.create({
-  mainCont: {
-    flex: 1,
-    backgroundColor: "white",
-    alignItems: "center",
-    justifyContent: "space-between",
-  },
-  cont: {
-    borderTopColor: "#ededed",
-    borderTopWidth: 1,
-    width: "100%",
-    paddingVertical: 10,
-    flexDirection: "row",
-    justifyContent: "center",
-  },
-  avatar: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-    marginRight: 10,
-    backgroundColor: "#c4c4c4",
-  },
-  inputCont: {
-    width: "75%",
-    borderWidth: 1,
-    borderColor: "#ededed",
-    borderRadius: 20,
-    paddingLeft: 10,
-    justifyContent: "center",
-  },
-  submit: {
-    position: "absolute",
-    right: 10,
-    fontWeight: "700",
-    color: "#489cf0",
-  },
-});

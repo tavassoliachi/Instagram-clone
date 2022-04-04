@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
 import React, { useEffect, useContext } from "react";
 import { useDispatch } from "react-redux";
-import { getUserData } from "../Redux/Actions";
+import { getUserData } from "../Redux/Actions/user/getUserData";
 import { AppStateContext } from "../Context";
 import getAvatar from "./getAvatar";
 import { auth } from "../Firebase-config";

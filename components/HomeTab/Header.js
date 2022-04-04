@@ -19,7 +19,11 @@ const Header = () => {
           onPress={() => navigation.navigate("newPost")}
         />
         <Feather name="heart" size={25} />
-        <MaterialCommunityIcons name="facebook-messenger" size={25} />
+        <MaterialCommunityIcons
+          name="facebook-messenger"
+          size={25}
+          onPress={() => navigation.navigate("messenger")}
+        />
       </View>
     </View>
   );

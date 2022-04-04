@@ -2,6 +2,9 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import TabNavigations from "./TabNavigations";
 import CommentScreen from "../Screens/CommentScreen";
+import MessengerScreen from "../Screens/MessageListScreen";
+import { auth } from "../Firebase-config";
+import MessengerNavigations from "./MessengerNavigations";
 const LoggedInNavigations = () => {
   const Stack = createStackNavigator();
   return (
@@ -18,6 +21,13 @@ const LoggedInNavigations = () => {
           title: "Comments",
           headerBackTitleVisible: false,
           headerTintColor: "black",
+        }}
+      />
+      <Stack.Screen
+        name="messenger"
+        component={MessengerNavigations}
+        options={{
+          headerShown: false,
         }}
       />
     </Stack.Navigator>

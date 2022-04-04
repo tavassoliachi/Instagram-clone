@@ -1,14 +1,13 @@
-import { StyleSheet, View, SectionList } from "react-native";
-import React, { useEffect, useState } from "react";
-import PostImage from "../components/HomeTab/Posts/PostImage";
-import Stories from "../components/HomeTab/Stories/Stories";
-import Header from "../components/HomeTab/Header";
-import PostHeader from "../components/HomeTab/Posts/PostHeader";
-import PostFooter from "../components/HomeTab/Posts/PostFooter";
-import { useContext } from "react";
+import { View, SectionList } from "react-native";
+import React from "react";
+import PostImage from "../../components/HomeTab/Posts/PostImage";
+import Stories from "../../components/HomeTab/Stories/Stories";
+import Header from "../../components/HomeTab/Header";
+import PostHeader from "../../components/HomeTab/Posts/PostHeader";
+import PostFooter from "../../components/HomeTab/Posts/PostFooter";
 import { useSelector } from "react-redux";
-import { AppStateContext } from "../Context";
-const HomeTab = () => {
+import { styles } from "./styles";
+const HomeScreen = () => {
   const data = useSelector((data) => data?.posts.recentPosts);
   return (
     <View>
@@ -31,6 +30,4 @@ const HomeTab = () => {
     </View>
   );
 };
-export default HomeTab;
-
-const styles = StyleSheet.create({});
+export default HomeScreen;

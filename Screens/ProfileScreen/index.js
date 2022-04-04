@@ -1,10 +1,10 @@
 import { StyleSheet, View, Image, Dimensions, SectionList } from "react-native";
 import React, { useEffect, useState } from "react";
-import Header1 from "../components/ProfileTab/Header1";
-import Header2 from "../components/ProfileTab/Header2";
-import ContentHeader from "../components/ProfileTab/ContentHeader";
+import Header1 from "../../components/ProfileTab/Header1";
+import Header2 from "../../components/ProfileTab/Header2";
+import ContentHeader from "../../components/ProfileTab/ContentHeader";
 import { useSelector } from "react-redux";
-const ProfileTab = ({ route }) => {
+const ProfileScreen = ({ route }) => {
   const screenWidth = Dimensions.get("window").width;
   const isSearch = route.name == "searchProfile";
   const data = useSelector((el) => el);
@@ -64,6 +64,6 @@ const ProfileTab = ({ route }) => {
   );
 };
 
-export default ProfileTab;
+export default ProfileScreen;
 
 const styles = StyleSheet.create({});

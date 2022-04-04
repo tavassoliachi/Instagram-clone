@@ -45,9 +45,11 @@ const Header1 = ({ posts, userData, isSearch }) => {
     setUID({ ...uid, [userData.uid]: url });
   };
 
-  const followState = data?.addUser?.user?.following?.includes(userData.uid)
-    ? "Unfollow"
-    : "Follow";
+  const followState =
+    data?.addUser?.user?.following?.filter((el) => el.uid == userData.uid)
+      .length > 0
+      ? "Unfollow"
+      : "Follow";
 
   useEffect(() => {
     if (!uid[userData.uid]) {

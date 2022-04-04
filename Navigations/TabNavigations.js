@@ -1,16 +1,16 @@
 import React, { useEffect } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import HomeTab from "../Screens/HomeTab";
+import HomeScreen from "../Screens/HomeScreen";
 import Foundation from "react-native-vector-icons/Foundation";
 import EvilIcons from "react-native-vector-icons/EvilIcons";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-import ProfileTab from "../Screens/ProfileTab";
+import ProfileTab from "../Screens/ProfileScreen";
 import SearchNavigations from "./SearchNavigations";
 import { useDispatch } from "react-redux";
 import PostScreen from "../Screens/PostScreen";
-import { getPosts } from "../Redux/Actions";
+import { getPosts } from "../Redux/Actions/user/getPosts";
 const TabNavigations = () => {
   const Tab = createBottomTabNavigator();
   const dispatch = useDispatch();
@@ -28,7 +28,7 @@ const TabNavigations = () => {
     >
       <Tab.Screen
         name="home"
-        component={HomeTab}
+        component={HomeScreen}
         tabBar
         options={{
           tabBarIcon: ({ focused }) => <Foundation name="home" size={32} />,

@@ -3,6 +3,7 @@ import { useState } from "react";
 export const AppStateContext = createContext();
 
 export const AppStateProvider = (props) => {
+  //avatars by userID-s
   const [uid, setUID] = useState({});
 
   return (

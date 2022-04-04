@@ -11,12 +11,14 @@ import {
 import React, { useEffect, useState, useCallback } from "react";
 import { doc, setDoc } from "firebase/firestore";
 import { useSelector, useDispatch } from "react-redux";
-import { getPosts } from "../Redux/Actions";
-import { db } from "../Firebase-config";
-import handlePost from "../components/handlePost";
+import { getPosts } from "../../Redux/Actions/user/getPosts";
+import { db } from "../../Firebase-config";
+import handlePost from "../../components/handlePost";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { useFocusEffect } from "@react-navigation/native";
+import RandomID from "../../components/Random";
+import { styles } from "./styles";
 const PostScreen = ({ navigation }) => {
   const dispatch = useDispatch();
   const data = useSelector((el) => el?.addUser.user);
@@ -25,14 +27,13 @@ const PostScreen = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
 
   const uploadPost = async () => {
-    const randomName =
-      data.uid + "-" + (Math.random() + Math.random()).toString();
+    const randomName = RandomID();
     await setDoc(doc(db, "posts", randomName), {
       img: url,
       name: randomName,
       username: data.username,
       uid: data.uid,
-      text: text,
+      text: text || "",
       createDate: Date.now(),
       likes: [],
       comments: [],
@@ -127,58 +128,3 @@ const PostScreen = ({ navigation }) => {
 };
 
 export default PostScreen;
-
-const styles = StyleSheet.create({
-  mainCont: { flex: 1, backgroundColor: "white" },
-  cont1: {
-    marginVertical: 10,
-    flexDirection: "row",
-    marginHorizontal: 15,
-  },
-  cont2: {
-    width: 90,
-    height: 80,
-    backgroundColor: "#c4c4c4",
-    alignItems: "center",
-  },
-  socialMedia: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    marginTop: 10,
-  },
-  locationCont: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    borderBottomWidth: 1,
-    borderColor: "#c4c4c4",
-    paddingVertical: 13,
-    alignItems: "center",
-  },
-  tagCont: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    borderBottomWidth: 1,
-    borderTopWidth: 1,
-    borderColor: "#c4c4c4",
-    paddingVertical: 13,
-    alignItems: "center",
-  },
-  input: {
-    width: "80%",
-    alignSelf: "flex-start",
-    flex: 1,
-    padding: 10,
-    flexWrap: "wrap",
-  },
-  loading: {
-    width: 80,
-    height: 80,
-    position: "absolute",
-  },
-  image: {
-    width: 90,
-    height: 80,
-    resizeMode: "contain",
-  },
-});

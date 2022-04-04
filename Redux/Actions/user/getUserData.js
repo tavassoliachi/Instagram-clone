@@ -1,7 +1,8 @@
 import { getAuth } from "firebase/auth";
-import { db } from "../Firebase-config";
+import { db } from "../../../Firebase-config";
 import { where, collection, query, getDocs, orderBy } from "firebase/firestore";
-import { auth, post, search } from "./Consts";
+import { auth, search } from "../../Consts";
+
 async function getData(collectionName, uid) {
   const q = query(collection(db, collectionName), where("uid", "==", uid));
   const { docs } = await getDocs(q);
@@ -12,9 +13,10 @@ async function getData(collectionName, uid) {
     });
     return postsArr;
   } else {
-    return docs[0].data();
+    return docs[0]?.data() || [];
   }
 }
+
 export const getUserData = (id) => async (dispatch) => {
   const user = getAuth();
   const uid = id || user.currentUser.uid;
@@ -37,15 +39,3 @@ export const getUserData = (id) => async (dispatch) => {
     },
   });
 };
-export const getPosts = () => async (dispatch) => {
-  const q = query(collection(db, "posts"), orderBy("createDate", "desc"));
-  const { docs } = await getDocs(q);
-  const data = docs.map((el) => {
-    return {
-      title: "post",
-      data: [el.data()],
-    };
-  });
-  dispatch({ type: post.attach, payload: data });
-};
-export const getAvatar = (uid) => async (dispatch) => {};

@@ -1,6 +1,7 @@
 import * as ImagePicker from "expo-image-picker";
 import { getStorage, ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import { useNavigation } from "@react-navigation/native";
+import RandomID from "./Random";
 const handlePost = async (Upload, stopLoading) => {
   if (Platform.OS !== "web") {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -22,7 +23,7 @@ const handlePost = async (Upload, stopLoading) => {
   }
   async function handleImageUpload(img) {
     const storage = getStorage();
-    const name = "image-" + (Math.random() + Math.random()).toString();
+    const name = `${RandomID()}`;
     const storageRef = ref(storage, name);
 
     const image = await fetch(img);

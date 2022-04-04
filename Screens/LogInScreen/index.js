@@ -1,13 +1,13 @@
 import { StyleSheet, View, Image, KeyboardAvoidingView } from "react-native";
 import React, { useState } from "react";
-import { auth } from "../Firebase-config";
+import { auth } from "../../Firebase-config";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import LoginErrorModal from "../components/LoginStack/ErrorModal";
-import LoginFooter from "../components/LoginStack/Footer";
-import Inputs from "../components/LoginStack/Content";
+import LoginErrorModal from "../../components/LoginStack/ErrorModal";
+import LoginFooter from "../../components/LoginStack/Footer";
+import Inputs from "../../components/LoginStack/Content";
 import { useNavigation } from "@react-navigation/native";
-
-const LogInStack = () => {
+import { styles } from "./styles";
+const LogInScreen = () => {
   const [modal, setModal] = useState(false);
   const navigation = useNavigation();
   async function SignIn(mail, pass) {
@@ -27,7 +27,7 @@ const LogInStack = () => {
       <LoginErrorModal modal={modal} setModal={setModal} />
       <View style={styles.logoCont}>
         <Image
-          source={require("../assets/headerLogo.png")}
+          source={require("../../assets/headerLogo.png")}
           style={{ height: 65, resizeMode: "contain" }}
         />
         <Inputs handleSubmit={SignIn} />
@@ -37,18 +37,4 @@ const LogInStack = () => {
   );
 };
 
-export default LogInStack;
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: "white",
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  logoCont: {
-    alignItems: "center",
-    width: "100%",
-    paddingHorizontal: 20,
-  },
-});
+export default LogInScreen;

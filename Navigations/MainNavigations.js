@@ -5,7 +5,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import AuthNavigations from "./AuthNavigations";
 import { getAuth } from "firebase/auth";
 import { useDispatch } from "react-redux";
-import { getUserData } from "../Redux/Actions";
+import { getUserData } from "../Redux/Actions/user/getUserData";
 import LoggedInNavigations from "./LoggedInNavigations";
 import LoadingScreen from "../Screens/LoadingScreen";
 const MainNavigations = () => {
