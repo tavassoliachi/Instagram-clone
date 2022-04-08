@@ -18,22 +18,18 @@ const ContentHeader = ({ username, isSearch }: Props) => {
   return (
     <View style={styles.mainCont}>
       <AuthModal modal={modal} setModal={setModal} />
-      <TouchableOpacity style={{ flexDirection: "row" }} onPress={handlePress}>
-        <Text style={{ fontSize: 20, fontWeight: "bold" }}>{username}</Text>
+      <TouchableOpacity style={styles.btn} onPress={handlePress}>
+        <Text style={styles.username}>{username}</Text>
         {!isSearch && (
           <MaterialIcons
             name="keyboard-arrow-down"
             size={25}
-            style={{ alignSelf: "flex-start" }}
+            style={styles.icon1}
           />
         )}
       </TouchableOpacity>
-      <View style={{ flexDirection: "row" }}>
-        <FontAwesome
-          name="plus-square-o"
-          size={25}
-          style={{ marginRight: 15 }}
-        />
+      <View style={styles.iconCont}>
+        <FontAwesome name="plus-square-o" size={25} style={styles.icon2} />
         <Ionicons name="menu-outline" size={25} />
       </View>
     </View>
@@ -48,5 +44,21 @@ const styles = StyleSheet.create({
     padding: 15,
     flexDirection: "row",
     justifyContent: "space-between",
+  },
+  btn: {
+    flexDirection: "row",
+  },
+  username: {
+    fontSize: 20,
+    fontWeight: "bold",
+  },
+  icon1: {
+    alignSelf: "flex-start",
+  },
+  iconCont: {
+    flexDirection: "row",
+  },
+  icon2: {
+    marginRight: 15,
   },
 });

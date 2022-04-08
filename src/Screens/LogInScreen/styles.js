@@ -11,4 +11,8 @@ export const styles = StyleSheet.create({
     width: "100%",
     paddingHorizontal: 20,
   },
+  image: {
+    height: 65,
+    resizeMode: "contain",
+  },
 });

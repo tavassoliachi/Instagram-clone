@@ -23,28 +23,19 @@ const Message = ({ target }: Props) => {
   );
 
   return (
-    <View
-      style={{
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems: "center",
-        height: 60,
-      }}
-    >
-      <View style={{ flexDirection: "row", alignItems: "center" }}>
+    <View style={styles.mainCont}>
+      <View style={styles.subCont}>
         <Image
           source={{
             uri:
               uid[target?.uid] ||
               "https://bombyxplm.com/wp-content/uploads/2021/01/421-4213053_default-avatar-icon-hd-png-download.png",
           }}
-          style={{ width: 50, height: 50, borderRadius: 25 }}
+          style={styles.image}
         />
-        <View style={{ flexDirection: "column", marginLeft: 15 }}>
-          <Text style={{ fontWeight: "400", fontSize: 14 }}>
-            {target.username}
-          </Text>
-          <Text style={{ color: "grey", fontSize: 12 }}>Seen Saturday</Text>
+        <View style={styles.usernameCont}>
+          <Text style={styles.username}>{target.username}</Text>
+          <Text style={styles.seen}>Seen Saturday</Text>
         </View>
       </View>
       <SimpleLineIcons name="camera" size={25} color="grey" />
@@ -54,4 +45,26 @@ const Message = ({ target }: Props) => {
 
 export default Message;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  mainCont: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    height: 60,
+  },
+  subCont: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  image: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+  },
+  usernameCont: {
+    flexDirection: "column",
+    marginLeft: 15,
+  },
+  username: { fontWeight: "400", fontSize: 14 },
+  seen: { color: "grey", fontSize: 12 },
+});

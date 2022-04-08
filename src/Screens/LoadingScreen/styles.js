@@ -23,4 +23,8 @@ export const styles = StyleSheet.create({
     bottom: 0,
     right: 0,
   },
+  subCont: {
+    height: "85%",
+    justifyContent: "center",
+  },
 });

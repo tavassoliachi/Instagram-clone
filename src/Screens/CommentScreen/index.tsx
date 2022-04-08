@@ -22,11 +22,11 @@ import { NavigationProp } from "@react-navigation/native";
 import { TRedux } from "../../types/ReduxTypes";
 import { LoggedInStackProps } from "../../types/NavigationTypes";
 import { styles } from "./styles";
-type Props = {
+interface IProps {
   route: RouteProp<LoggedInStackProps, "commentScreen">;
   navigation: NavigationProp<LoggedInStackProps>;
-};
-const CommentScreen = ({ route, navigation }: Props) => {
+}
+const CommentScreen = ({ route, navigation }: IProps) => {
   const dispatch = useDispatch();
   const [comment, setComment] = useState("");
   const data = route.params.data;
@@ -35,7 +35,6 @@ const CommentScreen = ({ route, navigation }: Props) => {
   const currPost = reduxData?.posts?.recentPosts.filter(
     (el) => el.data[0].name == data.name
   )[0].data[0];
-
   navigation.setOptions({
     headerRight: () => (
       <Ionicons
@@ -83,10 +82,10 @@ const CommentScreen = ({ route, navigation }: Props) => {
       style={styles.mainCont}
     >
       <ScrollView>
-        {currPost.text && <RenderComment data={data} type="owner" />}
-        {currPost?.comments?.map((el) => (
-          <RenderComment data={el.data} type={el.type} />
-        ))}
+        {currPost.text.length > 0 && <RenderComment data={data} type="owner" />}
+        {currPost?.comments?.map((el) => {
+          return <RenderComment data={el} type="..." />;
+        })}
       </ScrollView>
       <View style={styles.cont}>
         <Image
@@ -102,6 +101,7 @@ const CommentScreen = ({ route, navigation }: Props) => {
             placeholder="Add a comment..."
             value={comment}
             onChangeText={setComment}
+            multiline
           />
 
           <Text

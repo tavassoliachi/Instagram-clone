@@ -64,8 +64,17 @@ export interface IPostData extends IProfile {
   likes: Array<string>;
   createDate: number;
   text: string;
-  comments: Array<any>;
+  comments: Array<IComment>;
   img: string;
+}
+export interface IComment extends IUserInfo {
+  likes: Array<string>;
+  createDate: number;
+  text: string;
+  // replies: any[];
+}
+export interface ISearchResult extends IProfile {
+  searchQuery: string[];
 }
 export interface IPostObject {
   title: string;

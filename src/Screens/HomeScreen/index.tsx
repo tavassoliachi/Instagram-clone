@@ -13,7 +13,7 @@ const HomeScreen = () => {
   return (
     <View>
       <Header />
-      <View style={{ marginTop: 20 }}>
+      <View style={styles.cont}>
         {data && (
           <SectionList
             sections={data}

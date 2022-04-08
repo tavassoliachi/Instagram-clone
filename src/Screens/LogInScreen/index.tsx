@@ -30,7 +30,7 @@ const LogInScreen = () => {
       <View style={styles.logoCont}>
         <Image
           source={require("../../assets/headerLogo.png")}
-          style={{ height: 65, resizeMode: "contain" }}
+          style={styles.image}
         />
         <Inputs handleSubmit={SignIn} />
       </View>

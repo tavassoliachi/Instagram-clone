@@ -4,8 +4,13 @@ import { getDate } from "./getTime";
 import Feather from "react-native-vector-icons/Feather";
 import getAvatar from "./getAvatar";
 import { useContext } from "react";
+import { IComment } from "../types/ReduxTypes";
 import { AppStateContext } from "../Context";
-const RenderComment = (data: any, type: string) => {
+interface IProps {
+  data: IComment;
+  type?: string;
+}
+const RenderComment = ({ data, type }: IProps) => {
   const owner = (type && type == "owner") || false;
   const [date, setDate] = useState("");
   const { uid, setUID } = useContext(AppStateContext);
@@ -18,9 +23,8 @@ const RenderComment = (data: any, type: string) => {
   }, []);
 
   return (
-    //@ts-ignore
-    <View style={{ ...styles.commentCont, borderBottomWidth: owner && 1 }}>
-      <View style={{ width: "10%", marginRight: 10 }}>
+    <View style={{ ...styles.commentCont, borderBottomWidth: owner ? 1 : 0 }}>
+      <View style={styles.imgCont}>
         <Image
           source={{
             uri:
@@ -31,13 +35,13 @@ const RenderComment = (data: any, type: string) => {
         />
       </View>
 
-      <View style={{ width: "84%", flexDirection: "column" }}>
-        <Text style={{ fontSize: 13, width: "93%" }}>
-          <Text style={{ fontWeight: "600" }}>{data?.username + "  "}</Text>
+      <View style={styles.dataCont}>
+        <Text style={styles.usernameCont}>
+          <Text style={styles.username}>{data?.username + "  "}</Text>
           {data?.text}
         </Text>
-        <View style={{ flexDirection: "row", paddingTop: 5 }}>
-          <Text style={{ color: "gray", fontSize: 12 }}>{date}</Text>
+        <View style={styles.comDetailCont}>
+          <Text style={styles.date}>{date}</Text>
           {owner ? (
             <Text style={styles.txt}>See Translation</Text>
           ) : (
@@ -46,12 +50,7 @@ const RenderComment = (data: any, type: string) => {
         </View>
       </View>
       {!owner && (
-        <Feather
-          name="heart"
-          size={15}
-          style={{ position: "absolute", right: 20, top: 25 }}
-          color="#c4c4c4"
-        />
+        <Feather name="heart" size={15} style={styles.heart} color="#c4c4c4" />
       )}
     </View>
   );
@@ -79,5 +78,33 @@ const styles = StyleSheet.create({
     color: "gray",
     fontSize: 12,
     fontWeight: "700",
+  },
+  imgCont: {
+    width: "10%",
+    marginRight: 10,
+  },
+  dataCont: {
+    width: "84%",
+    flexDirection: "column",
+  },
+  usernameCont: {
+    fontSize: 13,
+    width: "93%",
+  },
+  username: {
+    fontWeight: "600",
+  },
+  comDetailCont: {
+    flexDirection: "row",
+    paddingTop: 5,
+  },
+  date: {
+    color: "gray",
+    fontSize: 12,
+  },
+  heart: {
+    position: "absolute",
+    right: 20,
+    top: 25,
   },
 });

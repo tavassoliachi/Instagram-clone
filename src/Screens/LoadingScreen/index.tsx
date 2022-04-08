@@ -4,7 +4,7 @@ import { styles } from "./styles";
 const LoadingScreen = () => {
   return (
     <View style={styles.mainCont}>
-      <View style={{ height: "85%", justifyContent: "center" }}>
+      <View style={styles.subCont}>
         <Image
           source={require("../../assets/Instagram-logo.png")}
           style={styles.image}

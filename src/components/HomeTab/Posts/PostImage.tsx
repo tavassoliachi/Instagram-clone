@@ -24,9 +24,7 @@ const SinglePost = ({ data }: Props) => {
     });
   }, []);
   return (
-    <View
-      style={{ marginVertical: 12, minHeight: 250, backgroundColor: "#c4c4c4" }}
-    >
+    <View style={styles.cont}>
       <Image
         source={{
           uri: `${data.img}`,
@@ -57,6 +55,11 @@ const SinglePost = ({ data }: Props) => {
 export default SinglePost;
 
 const styles = StyleSheet.create({
+  cont: {
+    marginVertical: 12,
+    minHeight: 250,
+    backgroundColor: "#c4c4c4",
+  },
   image: {
     resizeMode: "contain",
     width: "100%",

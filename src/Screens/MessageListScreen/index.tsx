@@ -13,16 +13,16 @@ import { where, collection, query, getDocs } from "firebase/firestore";
 import { db } from "../../Firebase-config";
 import { MessengerStackProps } from "../../types/NavigationTypes";
 import { TRedux } from "../../types/ReduxTypes";
+import { styles } from "./styles";
 import { NavigationProp } from "@react-navigation/native";
-
-type Props = {
+interface IProps {
   navigation: NavigationProp<MessengerStackProps, "messageListScreen">;
-};
-type targetType = {
+}
+type TTargetType = {
   username: string;
   uid: string;
 };
-const MessageListScreen = ({ navigation }: Props) => {
+const MessageListScreen = ({ navigation }: IProps) => {
   const [search, setSeach] = useState<string>("");
   const [conversations, setConversations] = useState<Array<Object>>([]);
   const data = useSelector((e: TRedux) => e?.addUser?.user);
@@ -44,17 +44,11 @@ const MessageListScreen = ({ navigation }: Props) => {
     setConversations(arr);
   }
   return (
-    <View style={{ flex: 1, backgroundColor: "white", paddingHorizontal: 12 }}>
+    <View style={styles.mainCont}>
       <SearchField value={search} setValue={setSeach} />
-      <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "space-between",
-          marginVertical: 12,
-        }}
-      >
-        <Text style={{ fontWeight: "600" }}>Messages</Text>
-        <Text style={{ color: "grey" }}>0 requests</Text>
+      <View style={styles.msgCont}>
+        <Text style={styles.msg}>Messages</Text>
+        <Text style={styles.request}>0 requests</Text>
       </View>
       <ScrollView>
         {conversations.map((el: any) => {
@@ -62,7 +56,7 @@ const MessageListScreen = ({ navigation }: Props) => {
             (id: string) => id !== data.uid
           )[0];
           const targetUsername: string = el[targetUID];
-          const target: targetType = {
+          const target: TTargetType = {
             uid: targetUID,
             username: targetUsername,
           };
@@ -83,5 +77,3 @@ const MessageListScreen = ({ navigation }: Props) => {
 };
 
 export default MessageListScreen;
-
-const styles = StyleSheet.create({});

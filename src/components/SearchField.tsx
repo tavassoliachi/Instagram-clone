@@ -9,7 +9,7 @@ type Props = {
 };
 const SearchField = ({ value, setValue }: Props) => {
   return (
-    <View style={{ position: "relative" }}>
+    <View style={styles.cont}>
       <TextInput
         style={styles.input}
         value={value}
@@ -20,7 +20,7 @@ const SearchField = ({ value, setValue }: Props) => {
         name="search1"
         size={22}
         color="#494949"
-        style={{ position: "absolute", top: 8, left: 10 }}
+        style={styles.searchIcon}
       />
     </View>
   );
@@ -29,6 +29,14 @@ const SearchField = ({ value, setValue }: Props) => {
 export default SearchField;
 
 const styles = StyleSheet.create({
+  cont: {
+    position: "relative",
+  },
+  searchIcon: {
+    position: "absolute",
+    top: 8,
+    left: 10,
+  },
   input: {
     backgroundColor: "#dedede",
     padding: 10,

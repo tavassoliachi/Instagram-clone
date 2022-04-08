@@ -32,18 +32,18 @@ import getAvatar from "../../components/getAvatar";
 import { useContext } from "react";
 import { AppStateContext } from "../../Context";
 import type { RouteProp } from "@react-navigation/native";
-import { StackNavigationProp } from "@react-navigation/stack";
+import { styles } from "./styles";
 import { MessengerStackProps } from "../../types/NavigationTypes";
 import Random from "../../components/Random";
-type commentType = {
+interface commentType {
   uid: string;
   text: string;
-};
-type Props = {
+}
+interface IProps {
   route: RouteProp<MessengerStackProps, "message">;
-};
+}
 
-const MessageScreen = ({ route }: Props) => {
+const MessageScreen = ({ route }: IProps) => {
   const [text, setText] = useState("");
   const { uid, setUID } = useContext(AppStateContext);
   const [messages, setMessages] = useState<Array<commentType>>([]);
@@ -130,24 +130,15 @@ const MessageScreen = ({ route }: Props) => {
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
-      style={{ flex: 1 }}
+      style={styles.mainCont}
       keyboardVerticalOffset={100}
     >
-      <View
-        style={{
-          flex: 1,
-          backgroundColor: "white",
-          alignItems: "center",
-          justifyContent: "flex-end",
-          paddingHorizontal: 20,
-          height: 900,
-        }}
-      >
+      <View style={styles.subCont}>
         {/* ---------------------------------------- */}
         <FlatList
           onEndReached={() => !end && getMessages(lastDoc)}
           onEndReachedThreshold={0.005}
-          style={{ width: "100%" }}
+          style={styles.flatList}
           data={messages}
           inverted={true}
           ListFooterComponent={<ActivityIndicator animating={!end} />}
@@ -163,10 +154,8 @@ const MessageScreen = ({ route }: Props) => {
             return (
               <View
                 style={{
-                  marginTop: 10,
-                  flexDirection: "row",
-                  alignItems: "center",
                   alignSelf: isOwner ? "flex-end" : "flex-start",
+                  ...styles.renderItem,
                 }}
               >
                 {!isOwner && imageShow && (
@@ -176,21 +165,15 @@ const MessageScreen = ({ route }: Props) => {
                         uid[el?.uid] ||
                         "https://bombyxplm.com/wp-content/uploads/2021/01/421-4213053_default-avatar-icon-hd-png-download.png",
                     }}
-                    style={{
-                      width: 35,
-                      height: 35,
-                      borderRadius: 35 / 2,
-                      marginRight: 15,
-                    }}
+                    style={styles.image}
                   />
                 )}
 
                 <View
                   style={{
                     backgroundColor: isOwner ? "blue" : "#c4c4c4",
-                    borderRadius: 20,
-                    padding: 10,
                     marginLeft: (!isOwner && !imageShow && 50) || 0,
+                    ...styles.text,
                   }}
                 >
                   <Text style={{ color: isOwner ? "white" : "black" }}>
@@ -204,67 +187,27 @@ const MessageScreen = ({ route }: Props) => {
 
         {/* ---------------------------------------- */}
 
-        <View
-          style={{
-            width: "100%",
-            justifyContent: "center",
-            marginTop: 20,
-          }}
-        >
+        <View style={styles.inputCont}>
           <TextInput
             onChangeText={setText}
             value={text}
-            style={{
-              width: "100%",
-              backgroundColor: "#dedede",
-              height: 40,
-              borderRadius: 20,
-              paddingLeft: 45,
-            }}
+            style={styles.input}
             placeholder="Message..."
           />
 
-          <View
-            style={{
-              backgroundColor: "#4f92d1",
-              width: 35,
-              height: 35,
-              alignItems: "center",
-              justifyContent: "center",
-              borderRadius: 35 / 2,
-              // marginLeft: 3,
-              position: "absolute",
-              left: 3,
-            }}
-          >
+          <View style={styles.cameraIcon}>
             <Ionicons size={25} name="camera" color="white" />
           </View>
 
           {text.length == 0 ? (
-            <View
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                width: 100,
-                position: "absolute",
-                right: 20,
-                justifyContent: "space-between",
-              }}
-            >
+            <View style={styles.iconsCont}>
               <SimpleLineIcons size={25} name="microphone" />
               <EvilIcons size={40} name="image" />
               <MaterialCommunityIcons size={25} name="sticker-emoji" />
             </View>
           ) : (
-            <TouchableOpacity
-              style={{
-                alignItems: "center",
-                position: "absolute",
-                right: 20,
-              }}
-              onPress={handleSend}
-            >
-              <Text style={{ fontWeight: "700", color: "green" }}>Send</Text>
+            <TouchableOpacity style={styles.btn} onPress={handleSend}>
+              <Text style={styles.send}>Send</Text>
             </TouchableOpacity>
           )}
         </View>
@@ -274,5 +217,3 @@ const MessageScreen = ({ route }: Props) => {
 };
 
 export default MessageScreen;
-
-const styles = StyleSheet.create({});

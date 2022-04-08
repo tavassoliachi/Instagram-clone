@@ -1,5 +1,9 @@
 import { StyleSheet } from "react-native";
 export const styles = StyleSheet.create({
+  mainCont: {
+    flex: 1,
+    backgroundColor: "white",
+  },
   loginInfo: {
     textAlign: "center",
     fontSize: 26,
@@ -26,5 +30,24 @@ export const styles = StyleSheet.create({
     borderRadius: 3,
     width: "80%",
     paddingLeft: 10,
+  },
+  backBTN: {
+    marginLeft: 10,
+  },
+  loginInfoCont: {
+    alignItems: "center",
+  },
+  optionsCont: {
+    flexDirection: "row",
+    marginTop: 20,
+    marginHorizontal: 10,
+  },
+  optionsSubCont: {
+    paddingHorizontal: 50,
+  },
+  optionTXT: {
+    fontSize: 25,
+    textAlign: "center",
+    paddingBottom: 10,
   },
 });

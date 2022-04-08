@@ -4,19 +4,22 @@ import Header1 from "../../components/ProfileTab/Header1";
 import Header2 from "../../components/ProfileTab/Header2";
 import ContentHeader from "../../components/ProfileTab/ContentHeader";
 import { useDispatch, useSelector } from "react-redux";
+import { RouteProp } from "@react-navigation/native";
 import { DispatchType } from "../../types/ReduxTypes";
-import { actionType } from "../../Redux/types";
 import { IProfileWithPosts } from "../../types/ReduxTypes";
 import { searchEnum } from "../../types/ReduxTypes";
+import { TabNavigationsProps } from "../../types/NavigationTypes";
+import { SearchStackProps } from "../../types/NavigationTypes";
+import { styles } from "./styles";
 import { TRedux } from "../../types/ReduxTypes";
 
-type Props = {
-  route: {
-    name: string;
-  };
-};
+interface IProps {
+  route:
+    | RouteProp<SearchStackProps, "searchProfile">
+    | RouteProp<TabNavigationsProps, "profile">;
+}
 
-const ProfileScreen = ({ route }: Props) => {
+const ProfileScreen = ({ route }: IProps) => {
   const screenWidth = Dimensions.get("window").width;
   const dispatch = useDispatch<DispatchType>();
   const isSearch = route.name == "searchProfile";
@@ -28,13 +31,12 @@ const ProfileScreen = ({ route }: Props) => {
       : setUserData(data.addUser.user);
   }, [data, isSearch]);
 
-  //@ts-ignore
   useEffect(() => {
     return () => dispatch({ type: searchEnum.detach });
   }, []);
 
   return (
-    <View style={{ flex: 1, backgroundColor: "white" }}>
+    <View style={styles.mainCont}>
       {userData?.username && (
         <ContentHeader username={userData.username} isSearch={isSearch} />
       )}
@@ -44,13 +46,9 @@ const ProfileScreen = ({ route }: Props) => {
             <Header1 userData={userData} isSearch={isSearch} />
           )}
           sections={userData.posts}
-          //@ts-ignore
-          keyExtractor={(index, item) => item + index}
+          keyExtractor={(index, item) => item.toString() + index}
           renderSectionHeader={Header2}
-          contentContainerStyle={{
-            flexDirection: "row",
-            flexWrap: "wrap",
-          }}
+          contentContainerStyle={styles.sectionList}
           stickySectionHeadersEnabled={true}
           renderItem={({ index, item }) => {
             const margin = { marginRight: (index + 1) % 3 !== 0 ? 1.5 : 0 };
@@ -61,9 +59,9 @@ const ProfileScreen = ({ route }: Props) => {
                 }}
                 style={{
                   ...margin,
+                  ...styles.renderItem,
                   width: screenWidth / 3 - 1,
                   height: screenWidth / 3 - 1,
-                  marginBottom: 1.5,
                 }}
               />
             );
@@ -75,5 +73,3 @@ const ProfileScreen = ({ route }: Props) => {
 };
 
 export default ProfileScreen;
-
-const styles = StyleSheet.create({});

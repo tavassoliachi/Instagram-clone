@@ -4,14 +4,14 @@ import { query, where, collection, getDocs } from "firebase/firestore";
 import { db } from "../../Firebase-config";
 import SearchRes from "../../components/SearchRes";
 import SearchField from "../../components/SearchField";
-import { SearchStackProps } from "../../types/NavigationTypes";
-import { NavigationProp } from "@react-navigation/native";
-type Props = {
-  navigation: NavigationProp<SearchStackProps>;
-};
-const SearchScreen = ({ navigation }: Props) => {
+import { styles } from "./styles";
+import { ISearchResult } from "../../types/ReduxTypes";
+// type Props = {
+//   navigation: NavigationProp<SearchStackProps>;
+// };
+const SearchScreen = () => {
   const [search, setSeach] = useState<string>("");
-  const [results, setResults] = useState<Array<Object>>([]);
+  const [results, setResults] = useState<ISearchResult[]>([]);
   useEffect(() => {
     (async function getSearch() {
       if (search.length < 2) {
@@ -23,13 +23,13 @@ const SearchScreen = ({ navigation }: Props) => {
         where("searchQuery", "array-contains", `${search}`)
       );
       const a = await getDocs(q);
-      let resArr: Array<Object> = [];
+      let resArr: Array<any> = [];
       a.forEach((el) => resArr.push(el.data()));
       setResults(resArr);
     })();
   }, [search]);
   return (
-    <View style={{ flex: 1, backgroundColor: "white", paddingHorizontal: 13 }}>
+    <View style={styles.mainCont}>
       <SearchField value={search} setValue={setSeach} />
 
       <View>
@@ -45,5 +45,3 @@ const SearchScreen = ({ navigation }: Props) => {
 };
 
 export default SearchScreen;
-
-const styles = StyleSheet.create({});

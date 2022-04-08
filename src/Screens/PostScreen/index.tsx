@@ -21,10 +21,10 @@ import { styles } from "./styles";
 import { NavigationProp } from "@react-navigation/native";
 import { TRedux } from "../../types/ReduxTypes";
 import { TabNavigationsProps } from "../../types/NavigationTypes";
-type Props = {
+interface IProps {
   navigation: NavigationProp<TabNavigationsProps>;
-};
-const PostScreen = ({ navigation }: Props) => {
+}
+const PostScreen = ({ navigation }: IProps) => {
   const dispatch = useDispatch();
   const data = useSelector((el: TRedux) => el?.addUser.user);
   const [url, setUrl] = useState<string>("");

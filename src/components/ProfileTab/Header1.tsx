@@ -76,13 +76,8 @@ const Header1 = ({ userData, isSearch }: Props) => {
   return (
     <View>
       <View style={styles.cont}>
-        <View
-          style={{
-            width: "40%",
-            left: 0,
-          }}
-        >
-          <View style={{ width: "80%", alignItems: "center" }}>
+        <View style={styles.subCont}>
+          <View style={styles.profileHeader}>
             <TouchableOpacity onPress={handlePress}>
               <Image
                 style={styles.image}
@@ -103,9 +98,7 @@ const Header1 = ({ userData, isSearch }: Props) => {
               <ActivityIndicator color="white" style={styles.loading} />
             )}
 
-            <Text style={{ marginTop: 5, fontWeight: "600" }}>
-              {userData.username}
-            </Text>
+            <Text style={styles.username}>{userData.username}</Text>
           </View>
         </View>
         <View style={styles.profileDetails}>
@@ -114,7 +107,7 @@ const Header1 = ({ userData, isSearch }: Props) => {
             { num: userData.followers?.length || 0, title: "Followers" },
             { num: userData.following?.length || 0, title: "Following" },
           ].map((el) => (
-            <View style={{ alignItems: "center" }}>
+            <View style={styles.followNum}>
               <Text style={styles.title}>{el.num}</Text>
               <Text style={styles.txt}>{el.title}</Text>
             </View>
@@ -126,18 +119,11 @@ const Header1 = ({ userData, isSearch }: Props) => {
           style={{ ...styles.editProfile }}
           onPress={handleClick}
         >
-          <Text style={{ textAlign: "center", fontWeight: "600" }}>
-            {followState}
-          </Text>
+          <Text style={styles.followState}>{followState}</Text>
         </TouchableOpacity>
       ) : (
-        <TouchableOpacity
-          style={styles.editProfile}
-          onPress={() => console.log("----------", uid)}
-        >
-          <Text style={{ textAlign: "center", fontWeight: "600" }}>
-            Edit Profile
-          </Text>
+        <TouchableOpacity style={styles.editProfile}>
+          <Text style={styles.editTXT}>Edit Profile</Text>
         </TouchableOpacity>
       )}
     </View>
@@ -186,5 +172,28 @@ const styles = StyleSheet.create({
   },
   txt: {
     fontWeight: "300",
+  },
+  subCont: {
+    width: "40%",
+    left: 0,
+  },
+  profileHeader: {
+    width: "80%",
+    alignItems: "center",
+  },
+  username: {
+    marginTop: 5,
+    fontWeight: "600",
+  },
+  followNum: {
+    alignItems: "center",
+  },
+  followState: {
+    textAlign: "center",
+    fontWeight: "600",
+  },
+  editTXT: {
+    textAlign: "center",
+    fontWeight: "600",
   },
 });

@@ -5,7 +5,7 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 const Header2 = () => {
   const screenWidth: number = Dimensions.get("window").width;
-
+  const iconStyle = { width: screenWidth / 3, textAlign: "center" };
   return (
     <View style={{ backgroundColor: "white" }}>
       <View style={styles.iconsCont}>

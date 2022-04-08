@@ -11,11 +11,15 @@ import {
   useNavigation,
 } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { SearchStackProps, TabNavigationsProps } from "../types/NavigationTypes";
-type Props = {
-  data: any;
-};
-const SearchRes = ({ data }: Props) => {
+import { ISearchResult } from "../types/ReduxTypes";
+import {
+  SearchStackProps,
+  TabNavigationsProps,
+} from "../types/NavigationTypes";
+interface IProps {
+  data: ISearchResult;
+}
+const SearchRes = ({ data }: IProps) => {
   const currUid: string = auth.currentUser!.uid;
 
   const dispatch = useDispatch();

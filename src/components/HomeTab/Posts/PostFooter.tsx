@@ -81,24 +81,21 @@ const PostFooter = ({ data }: Props) => {
         <FontAwesome name="bookmark-o" size={25} />
       </View>
 
-      <Text style={{ fontWeight: "600", marginBottom: 5 }}>{likeN} likes</Text>
+      <Text style={styles.likes}>{likeN} likes</Text>
 
-      <Text style={{ marginBottom: 5 }}>
-        <Text style={{ fontWeight: "600" }}>{postData.username}</Text>{" "}
-        {postData.text}
+      <Text style={styles.usernameCont}>
+        <Text style={styles.username}>{postData.username}</Text> {postData.text}
       </Text>
 
       {commentsN > 0 && (
         <Text
-          style={{ color: "gray", marginBottom: 5 }}
+          style={styles.comment}
           onPress={() => navigation.push("commentScreen", { data: postData })}
         >
           View all {commentsN} comments
         </Text>
       )}
-      <Text style={{ color: "gray", fontSize: 12, marginBottom: 10 }}>
-        {date}
-      </Text>
+      <Text style={styles.date}>{date}</Text>
     </View>
   );
 };
@@ -119,5 +116,24 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     width: "25%",
+  },
+  likes: {
+    fontWeight: "600",
+    marginBottom: 5,
+  },
+  usernameCont: {
+    marginBottom: 5,
+  },
+  username: {
+    fontWeight: "600",
+  },
+  comment: {
+    color: "gray",
+    marginBottom: 5,
+  },
+  date: {
+    color: "gray",
+    fontSize: 12,
+    marginBottom: 10,
   },
 });

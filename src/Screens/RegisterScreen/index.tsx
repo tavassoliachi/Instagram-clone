@@ -9,6 +9,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { setDoc, doc } from "firebase/firestore";
 import { db } from "../../Firebase-config";
 import { styles } from "./style";
+import { FirebaseApp } from "firebase/app";
 import { NavigationProp } from "@react-navigation/native";
 const RegisterScreen = () => {
   const Stack = createStackNavigator();
@@ -41,11 +42,9 @@ const Register1 = ({ navigation }: Props) => {
         searchQuery.push(searchKeyword);
       }
       await setDoc(
-        //@ts-ignore
         doc(db, "users", auth.currentUser.uid),
         {
           username: `${username}`,
-          //@ts-ignore
           uid: auth.currentUser.uid,
           searchQuery: searchQuery,
           followers: [],
@@ -58,31 +57,27 @@ const Register1 = ({ navigation }: Props) => {
   };
 
   return (
-    <View style={{ flex: 1, backgroundColor: "white" }}>
+    <View style={styles.mainCont}>
       <MaterialIcons
         name="arrow-back-ios"
         size={25}
-        style={{ marginLeft: 10 }}
+        style={styles.backBTN}
         onPress={() => navigation.goBack()}
       />
-      <View style={{ alignItems: "center" }}>
+      <View style={styles.loginInfoCont}>
         <Text style={styles.loginInfo}>
           Enter phone number or email address
         </Text>
-        <View
-          style={{ flexDirection: "row", marginTop: 20, marginHorizontal: 10 }}
-        >
+        <View style={styles.optionsCont}>
           <View
             style={{
-              paddingHorizontal: 50,
+              ...styles.optionsSubCont,
               borderBottomWidth: registerType == "phone" ? 2 : 1,
             }}
           >
             <Text
               style={{
-                fontSize: 25,
-                textAlign: "center",
-                paddingBottom: 10,
+                ...styles.optionTXT,
                 color: registerType == "phone" ? "black" : "gray",
               }}
               onPress={() => setRegisterType("phone")}
@@ -92,15 +87,13 @@ const Register1 = ({ navigation }: Props) => {
           </View>
           <View
             style={{
-              paddingHorizontal: 50,
+              ...styles.optionsSubCont,
               borderBottomWidth: registerType == "email" ? 2 : 1,
             }}
           >
             <Text
               style={{
-                fontSize: 25,
-                textAlign: "center",
-                paddingBottom: 10,
+                ...styles.optionTXT,
                 color: registerType == "email" ? "black" : "gray",
               }}
               onPress={() => setRegisterType("email")}
