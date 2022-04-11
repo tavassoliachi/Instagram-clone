@@ -5,7 +5,8 @@ import {
   StorageBucket,
   MessagingSenderId,
   AppId,
-} from '@env';
+  persistKEY,
+} from "@env";
 
 export default {
   ApiKey,
@@ -14,4 +15,5 @@ export default {
   StorageBucket,
   MessagingSenderId,
   AppId,
+  persistKEY,
 };

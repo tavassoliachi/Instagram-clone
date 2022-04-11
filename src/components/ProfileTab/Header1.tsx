@@ -33,7 +33,7 @@ const Header1 = ({ userData, isSearch }: Props) => {
   const dispatch = useDispatch();
   const posts = isSearch
     ? data.searchedProfile?.searchedData?.posts
-      ? data.searchedProfile?.searchedData?.posts[0].data
+      ? data.searchedProfile?.searchedData?.posts[0]?.data
       : []
     : data.addUser.user.posts[0]?.data;
   const { uid, setUID } = useContext(AppStateContext);
@@ -107,7 +107,7 @@ const Header1 = ({ userData, isSearch }: Props) => {
             { num: userData.followers?.length || 0, title: "Followers" },
             { num: userData.following?.length || 0, title: "Following" },
           ].map((el) => (
-            <View style={styles.followNum}>
+            <View style={styles.followNum} key={el.title}>
               <Text style={styles.title}>{el.num}</Text>
               <Text style={styles.txt}>{el.title}</Text>
             </View>
