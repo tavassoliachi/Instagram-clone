@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
+import { styles } from "./styles";
 import AuthModal from "./AuthModal";
 interface Props {
   username: string;
@@ -16,10 +17,10 @@ const ContentHeader = ({ username, isSearch }: Props) => {
     }
   };
   return (
-    <View style={styles.mainCont}>
+    <View style={styles.headerCont}>
       <AuthModal modal={modal} setModal={setModal} />
-      <TouchableOpacity style={styles.btn} onPress={handlePress}>
-        <Text style={styles.username}>{username}</Text>
+      <TouchableOpacity style={styles.headerBTN} onPress={handlePress}>
+        <Text style={styles.headerUsername}>{username}</Text>
         {!isSearch && (
           <MaterialIcons
             name="keyboard-arrow-down"
@@ -37,28 +38,3 @@ const ContentHeader = ({ username, isSearch }: Props) => {
 };
 
 export default ContentHeader;
-
-const styles = StyleSheet.create({
-  mainCont: {
-    alignItems: "center",
-    padding: 15,
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-  btn: {
-    flexDirection: "row",
-  },
-  username: {
-    fontSize: 20,
-    fontWeight: "bold",
-  },
-  icon1: {
-    alignSelf: "flex-start",
-  },
-  iconCont: {
-    flexDirection: "row",
-  },
-  icon2: {
-    marginRight: 15,
-  },
-});

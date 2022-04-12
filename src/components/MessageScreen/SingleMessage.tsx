@@ -10,5 +10,3 @@ const SingleMessage = () => {
 };
 
 export default SingleMessage;
-
-const styles = StyleSheet.create({});

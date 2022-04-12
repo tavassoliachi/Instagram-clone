@@ -7,24 +7,21 @@ import {
   ActivityIndicator,
 } from "react-native";
 import React, { useState, useEffect } from "react";
+import { styles } from "../styles";
+import ImageHeight from "./functions/ImageHeight";
 import { IPostData } from "../../../types/ReduxTypes";
 type Props = {
   data: IPostData;
 };
 
 const SinglePost = ({ data }: Props) => {
-  const [height, setHeight] = useState<number>();
+  const [height, setHeight] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>();
   useEffect(() => {
-    Image.getSize(`${data.img}`, (width, height) => {
-      let screenWidth = Dimensions.get("window").width;
-      let scaleFactor = width / screenWidth;
-      let imageHeight: number = height / scaleFactor;
-      setHeight(imageHeight);
-    });
+    ImageHeight(data.img, setHeight);
   }, []);
   return (
-    <View style={styles.cont}>
+    <View style={styles.contentCont}>
       <Image
         source={{
           uri: `${data.img}`,
@@ -34,7 +31,7 @@ const SinglePost = ({ data }: Props) => {
         resizeMode={"contain"}
         style={{
           height: height,
-          ...styles.image,
+          ...styles.contentIMG,
         }}
       />
       {loading && (
@@ -44,7 +41,7 @@ const SinglePost = ({ data }: Props) => {
           style={{
             position: "absolute",
             height: height,
-            ...styles.image,
+            ...styles.contentIMG,
           }}
         />
       )}
@@ -53,16 +50,3 @@ const SinglePost = ({ data }: Props) => {
 };
 
 export default SinglePost;
-
-const styles = StyleSheet.create({
-  cont: {
-    marginVertical: 12,
-    minHeight: 250,
-    backgroundColor: "#c4c4c4",
-  },
-  image: {
-    resizeMode: "contain",
-    width: "100%",
-    backgroundColor: "#c4c4c4",
-  },
-});

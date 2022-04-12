@@ -2,6 +2,7 @@ import { StyleSheet, Text, View, Image } from "react-native";
 import React, { useEffect, useState } from "react";
 import getAvatar from "../../getAvatar";
 import { useContext } from "react";
+import { styles } from "../styles";
 import { IPostData } from "../../../types/ReduxTypes";
 import { AppStateContext } from "../../../Context";
 type Props = {
@@ -21,8 +22,8 @@ const PostHeader = ({ data }: Props) => {
     }
   }, []);
   return (
-    <View style={styles.cont}>
-      <View style={styles.subCont}>
+    <View style={styles.headerCont}>
+      <View style={styles.headerSubCont}>
         <Image
           style={styles.image}
           source={{
@@ -40,24 +41,3 @@ const PostHeader = ({ data }: Props) => {
 };
 
 export default PostHeader;
-
-const styles = StyleSheet.create({
-  cont: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginTop: 20,
-  },
-  subCont: { flexDirection: "row", marginLeft: 8 },
-  image: {
-    width: 45,
-    height: 45,
-    borderRadius: 45 / 2,
-    backgroundColor: "#c4c4c4",
-  },
-  username: { alignSelf: "center", marginLeft: 8, fontWeight: "600" },
-  seeMore: {
-    marginRight: 20,
-    fontWeight: "bold",
-    marginTop: 7,
-  },
-});

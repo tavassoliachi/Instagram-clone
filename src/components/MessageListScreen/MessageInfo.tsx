@@ -4,6 +4,7 @@ import SimpleLineIcons from "react-native-vector-icons/SimpleLineIcons";
 import { useFocusEffect } from "@react-navigation/native";
 import { useContext } from "react";
 import { AppStateContext } from "../../Context";
+import { styles } from "./styles";
 import getAvatar from "../getAvatar";
 interface Props {
   target: {
@@ -23,15 +24,15 @@ const Message = ({ target }: Props) => {
   );
 
   return (
-    <View style={styles.mainCont}>
-      <View style={styles.subCont}>
+    <View style={styles.msgCont}>
+      <View style={styles.msgSubcont}>
         <Image
           source={{
             uri:
               uid[target?.uid] ||
               "https://bombyxplm.com/wp-content/uploads/2021/01/421-4213053_default-avatar-icon-hd-png-download.png",
           }}
-          style={styles.image}
+          style={styles.msgAvatar}
         />
         <View style={styles.usernameCont}>
           <Text style={styles.username}>{target.username}</Text>
@@ -44,27 +45,3 @@ const Message = ({ target }: Props) => {
 };
 
 export default Message;
-
-const styles = StyleSheet.create({
-  mainCont: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    height: 60,
-  },
-  subCont: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  image: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-  },
-  usernameCont: {
-    flexDirection: "column",
-    marginLeft: 15,
-  },
-  username: { fontWeight: "400", fontSize: 14 },
-  seen: { color: "grey", fontSize: 12 },
-});

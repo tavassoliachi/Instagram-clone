@@ -9,11 +9,10 @@ import {
 } from "react-native";
 import React, { useEffect, useState, useContext } from "react";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { db } from "../../Firebase-config";
 import { setDoc, doc } from "firebase/firestore";
 import { getPosts } from "../../Redux/Actions/user/getPosts";
-import { useDispatch } from "react-redux";
 import RenderComment from "../../components/RenderComment";
 import getAvatar from "../../components/getAvatar";
 import { AppStateContext } from "../../Context";
@@ -35,15 +34,7 @@ const CommentScreen = ({ route, navigation }: IProps) => {
   const currPost = reduxData?.posts?.recentPosts.filter(
     (el) => el.data[0].name == data.name
   )[0].data[0];
-  navigation.setOptions({
-    headerRight: () => (
-      <Ionicons
-        name="paper-plane-outline"
-        size={25}
-        style={{ marginRight: 15 }}
-      />
-    ),
-  });
+  const { uid, setUID } = useContext(AppStateContext);
 
   const handlePost = async () => {
     let newData = [
@@ -69,11 +60,19 @@ const CommentScreen = ({ route, navigation }: IProps) => {
     dispatch(getPosts());
   };
 
-  const { uid, setUID } = useContext(AppStateContext);
   useEffect(() => {
     if (!uid[currUser.uid]) {
       getAvatar(currUser.uid, setUID);
     }
+    navigation.setOptions({
+      headerRight: () => (
+        <Ionicons
+          name="paper-plane-outline"
+          size={25}
+          style={{ marginRight: 15 }}
+        />
+      ),
+    });
   }, []);
   return (
     <KeyboardAvoidingView
@@ -84,7 +83,7 @@ const CommentScreen = ({ route, navigation }: IProps) => {
       <ScrollView>
         {currPost.text.length > 0 && <RenderComment data={data} type="owner" />}
         {currPost?.comments?.map((el) => {
-          return <RenderComment data={el} type="..." />;
+          return <RenderComment data={el} type="..." key={el.createDate} />;
         })}
       </ScrollView>
       <View style={styles.cont}>

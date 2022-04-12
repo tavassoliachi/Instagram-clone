@@ -1,4 +1,4 @@
-import { StyleSheet, View, FlatList } from "react-native";
+import { View, FlatList } from "react-native";
 import React, { useEffect, useState } from "react";
 import { query, where, collection, getDocs } from "firebase/firestore";
 import { db } from "../../Firebase-config";
@@ -6,9 +6,7 @@ import SearchRes from "../../components/SearchRes";
 import SearchField from "../../components/SearchField";
 import { styles } from "./styles";
 import { ISearchResult } from "../../types/ReduxTypes";
-// type Props = {
-//   navigation: NavigationProp<SearchStackProps>;
-// };
+
 const SearchScreen = () => {
   const [search, setSeach] = useState<string>("");
   const [results, setResults] = useState<ISearchResult[]>([]);

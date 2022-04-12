@@ -1,41 +1,21 @@
 import { StyleSheet, Text, View, Image } from "react-native";
+import { styles } from "../styles";
 import React from "react";
 
 const SingleStory = () => {
   return (
-    <View style={styles.mainCont}>
-      <View style={styles.subCont}>
+    <View style={styles.storyCont}>
+      <View style={styles.storySubCont}>
         <Image
           source={{
             uri: "https://thumbs.dreamstime.com/b/happy-person-portrait-smiling-woman-tanned-skin-curly-hair-happy-person-portrait-smiling-young-friendly-woman-197501184.jpg",
           }}
-          style={styles.image}
+          style={styles.storyAvatar}
         />
       </View>
-      <Text style={styles.username}>Username</Text>
+      <Text style={styles.storyUsername}>Username</Text>
     </View>
   );
 };
 
 export default SingleStory;
-
-const styles = StyleSheet.create({
-  mainCont: {
-    margin: 6,
-  },
-  subCont: {
-    borderRadius: 50,
-    borderColor: "red",
-    borderWidth: 2,
-    maxWidth: 77,
-  },
-  image: {
-    width: 67,
-    height: 67,
-    borderRadius: 67 / 2,
-    margin: 3,
-  },
-  username: {
-    textAlign: "center",
-  },
-});

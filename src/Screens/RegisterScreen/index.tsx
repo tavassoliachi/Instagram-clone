@@ -1,16 +1,14 @@
-import { StyleSheet, Text, View, TextInput, Dimensions } from "react-native";
+import { Text, View, TextInput, Dimensions } from "react-native";
 import React, { useState } from "react";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { updateProfile } from "firebase/auth";
-import { auth } from "../../Firebase-config";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { auth, db } from "../../Firebase-config";
 import { createStackNavigator } from "@react-navigation/stack";
 import { setDoc, doc } from "firebase/firestore";
-import { db } from "../../Firebase-config";
-import { styles } from "./style";
-import { FirebaseApp } from "firebase/app";
 import { NavigationProp } from "@react-navigation/native";
+import { styles } from "./style";
+
 const RegisterScreen = () => {
   const Stack = createStackNavigator();
 

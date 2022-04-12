@@ -5,6 +5,7 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
+import { styles } from "./styles";
 import React, { useState } from "react";
 interface Props {
   handleSubmit: (mail: string, pass: string) => void;
@@ -13,7 +14,7 @@ const Inputs = ({ handleSubmit }: Props) => {
   const [mail, setMail] = useState("");
   const [pass, setPass] = useState("");
   return (
-    <View style={styles.container}>
+    <View style={styles.contentCont}>
       <TextInput
         placeholder="Phone number, username or email address"
         style={styles.input}
@@ -43,35 +44,3 @@ const Inputs = ({ handleSubmit }: Props) => {
 };
 
 export default Inputs;
-
-const styles = StyleSheet.create({
-  container: { alignItems: "center", width: "100%", paddingHorizontal: 20 },
-  input: {
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
-    borderColor: "#c4c4c4",
-    backgroundColor: "#f5f5f5",
-    borderRadius: 3,
-    width: "100%",
-    paddingLeft: 10,
-  },
-  forgotPass: {
-    alignSelf: "flex-end",
-    color: "#489cf0",
-    fontWeight: "600",
-    fontSize: 12,
-  },
-  submitBtn: {
-    backgroundColor: "#489cf0",
-    width: "100%",
-    paddingVertical: 13,
-    borderRadius: 3,
-    marginTop: 37,
-  },
-  submitText: {
-    textAlign: "center",
-    color: "white",
-    fontWeight: "600",
-  },
-});

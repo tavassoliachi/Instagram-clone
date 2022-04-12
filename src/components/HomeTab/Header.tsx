@@ -10,6 +10,7 @@ import {
   LoggedInStackProps,
   TabNavigationsProps,
 } from "../../types/NavigationTypes";
+import { styles } from "./styles";
 const Header = () => {
   const navigation =
     useNavigation<
@@ -20,7 +21,7 @@ const Header = () => {
     >();
 
   return (
-    <View style={styles.cont}>
+    <View style={styles.tabHeaderCont}>
       <Image
         source={require("../../assets/headerLogo.png")}
         style={styles.logo}
@@ -43,24 +44,3 @@ const Header = () => {
 };
 
 export default Header;
-
-const styles = StyleSheet.create({
-  cont: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    paddingTop: 4,
-    height: 30,
-  },
-  logo: {
-    height: 45,
-    width: 145,
-    resizeMode: "contain",
-  },
-  iconsCont: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-evenly",
-    width: "40%",
-  },
-});
